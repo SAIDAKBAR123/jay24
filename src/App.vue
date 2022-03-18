@@ -4,22 +4,27 @@
       app
       color="white"
       flat
+      elevate-on-scroll
+      elevation="6"
     >
       <v-container class="py-0 fill-height">
         <v-avatar
-          class="mr-10"
+          class="mr-2"
           color="grey darken-1"
           size="42"
         >
           <v-img src="https://media-exp1.licdn.com/dms/image/C4D03AQG-qhCH7f2HuA/profile-displayphoto-shrink_800_800/0/1631712305647?e=1652918400&v=beta&t=lWbjKVBYkHpP9Fdv8bUM6vHTz4M1PV9i_q6EtFUa4Vs"></v-img>
         </v-avatar>
-
+            <span class="text">Kamila <br> Shadimetova</span>
+            <v-spacer></v-spacer>
         <v-btn
           v-for="link in links"
           :key="link"
+          active-class
+          @click="$router.push(`/${link.link}`)"
           text
         >
-          {{ link }}
+          {{ link.title }}
         </v-btn>
 
         <v-spacer></v-spacer>
@@ -40,16 +45,17 @@
       <v-container>
         <v-row>
           <v-col cols="2">
-            <v-sheet rounded="lg">
+            <v-sheet rounded="lg" >
               <v-list color="transparent">
                 <v-list-item
-                  v-for="n in 5"
+                  active-class="true"
+                  v-for="n in links"
                   :key="n"
                   link
                 >
                   <v-list-item-content>
                     <v-list-item-title>
-                      List Item {{ n }}
+                      {{n.title}}
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -62,7 +68,7 @@
                 >
                   <v-list-item-content>
                     <v-list-item-title>
-                      Refresh
+                      Выйти
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -74,8 +80,9 @@
             <v-sheet
               min-height="70vh"
               rounded="lg"
+              class="py-5 px-5"
             >
-              <!--  -->
+              <router-view />
             </v-sheet>
           </v-col>
         </v-row>
@@ -88,11 +95,31 @@
 export default {
   data: () => ({
     links: [
-      'Dashboard',
-      'Messages',
-      'Profile',
-      'Updates'
+      {
+        title: 'Пользователи',
+        link: 'users'
+      },
+      {
+        title: 'Обеды',
+        link: 'lunchs'
+      },
+      {
+        title: 'Меню',
+        link: 'menus'
+      },
+      {
+        title: 'Настройки',
+        link: 'settings'
+      }
     ]
-  })
+  }),
+  created () {
+    // this.$vuetify.theme = 'dark'
+  }
 }
 </script>
+<style scoped>
+.trueClass {
+  background: red;
+}
+</style>
