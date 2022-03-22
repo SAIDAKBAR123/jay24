@@ -11,7 +11,7 @@
           <v-col cols="auto">
             <v-card-title class="overflow-hidden"> {{element.title }} </v-card-title>
             <v-card-subtitle
-              ><span> {{ element.description}} </span>
+              ><span> {{ element.description }} </span>
             </v-card-subtitle>
           </v-col>
           <v-col cols="auto">
