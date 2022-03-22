@@ -5,15 +5,15 @@
         <v-col cols="auto">
           <img height="auto" width="130" :src="logo" alt="asd" srcset="" />
         </v-col>
-        <v-col cols="7">
+        <v-col cols="4" class="ml-16">
           <v-text-field
             dense
+            full-width
             flat
             hide-details
             placeholder="Search"
             prepend-inner-icon="mdi-find-replace"
-            class="border-none rounded-sm"
-            color="blue lighten-1"
+            class="border-none rounded-md"
             :rounded="false"
             outlined
           ></v-text-field>

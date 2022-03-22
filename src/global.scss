@@ -9,3 +9,6 @@ $title-font: 'Lato';
         font-family: $title-font, sans-serif !important;
      }
   }
+  html {
+   scroll-behavior: smooth !important;
+ }
