@@ -36,41 +36,40 @@
             </v-card-title>
 
             <v-card-text>
-              <v-container fluid>
+              <v-container>
                 <v-row>
                   <v-col
                     cols="12"
                   >
-                   <v-text-field
-                      v-model="editedItem.title.uz"
-                      label="Название обеда 🇺🇿"
-                    ></v-text-field>
-                   <v-text-field
-                      v-model="editedItem.title.ru"
-                      label="Название обеда 🇷🇺"
-                    ></v-text-field>
                     <v-text-field
-                      v-model="editedItem.title.en"
-                      label="Название обеда 🇬🇧"
-                    ></v-text-field>
-                    <v-text-field
-                      v-model="editedItem.price"
-                      type="number"
-                      label="Price"
-                    ></v-text-field>
-                    <v-text-field
-                      v-model="editedItem.slug"
-                      label="slug"
+                      v-model="editedItem.name"
+                      label="Полное имя персонала"
                     ></v-text-field>
                   </v-col>
-                  <v-col :cols="editedItem.image ? 8 : 12">
-                     <v-text-field
-                      v-model="editedItem.image"
-                      label="Image url"
+                  <v-col
+                    cols="12"
+                  >
+                    <v-text-field
+                      v-model="editedItem.phone_number"
+                      label="Телефонный номер"
                     ></v-text-field>
                   </v-col>
-                  <v-col v-if="editedItem.image" :cols="4">
-                    <v-img :src="editedItem.image"></v-img>
+                  <v-col
+                    cols="12"
+                  >
+                    <v-text-field
+                      v-model="editedItem.login"
+                      label="Имя пользователя"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                  >
+                    <v-select
+                      v-model="editedItem.type"
+                      :items="['admin', 'hr', 'chief', 'intern', 'staff']"
+                      label="Роль пользователя"
+                    ></v-select>
                   </v-col>
                 </v-row>
               </v-container>
@@ -108,8 +107,8 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.image="{ item }">
-      <v-img v-if="item.image" :src="item.image" height="70" class="m-1 rounded-lg my-2" width="70"></v-img>
+    <template v-slot:item.type="{ item }">
+      <v-chip class="px-4 rounded-lg" small :color="getTypeColor(item.type)" dark>{{ item.type }}</v-chip>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon
@@ -142,38 +141,39 @@ export default {
     dialog: false,
     dialogDelete: false,
     headers: [
-      { text: 'Name of food', value: 'title.ru' },
-      { text: 'image', value: 'image' },
-      { text: 'price', value: 'price' },
+      {
+        text: 'Name',
+        align: 'start',
+        sortable: false,
+        value: 'name'
+      },
+      { text: 'Login', value: 'login' },
+      { text: 'Password', value: 'password' },
+      { text: 'Phone', value: 'phone_number' },
+      { text: 'Status', value: 'type' },
       { text: 'Actions', value: 'actions', sortable: false }
     ],
     desserts: [],
     editedIndex: -1,
     editedItem: {
-      title: {
-        uz: '',
-        ru: '',
-        en: ''
-      },
-      image: '',
-      price: 18000,
-      slug: 'manti'
+      name: '',
+      login: '',
+      password: '',
+      phone_number: '',
+      type: ''
     },
     defaultItem: {
-      title: {
-        uz: '',
-        ru: '',
-        en: ''
-      },
-      image: '',
-      price: 18000,
-      slug: ''
+      name: '',
+      login: '',
+      password: '',
+      phone_number: '',
+      type: ''
     }
   }),
 
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'Добавить новый обед' : 'Изменить обед'
+      return this.editedIndex === -1 ? 'Добавить нового пользователя' : 'Изменить персонал'
     }
   },
 
@@ -183,10 +183,6 @@ export default {
     },
     dialogDelete (val) {
       val || this.closeDelete()
-    },
-
-    'editedItem.title.en' (value) {
-      this.editedItem.slug = value.split(' ').join('-')
     }
   },
 
@@ -215,28 +211,36 @@ export default {
     initialize () {
       this.desserts = [
         {
-          id: 'e89b2122-b039-4642-a332-d420d62d21fa',
-          _id: 'e89b2122-b039-4642-a332-d420d62d21fa',
-          title: {
-            uz: 'Manti',
-            ru: 'Manti',
-            en: 'Manti'
-          },
-          image: '/url',
-          price: 18000,
-          slug: 'manti'
+          id: 'id123',
+          name: 'Saidakbar Makhmudkhujaev',
+          login: '998998005598',
+          password: '*********',
+          phone_number: '+998977509532',
+          type: 'admin'
         },
         {
-          id: 'e89b212sd2-b039-4642-a332-d420d62d21fa',
-          _id: 'e89b212sd2-b039-4642-a332-d420d62d21fa',
-          title: {
-            uz: 'Norin',
-            ru: 'Norin',
-            en: 'Norin'
-          },
-          image: '/norin',
-          price: 18000,
-          slug: 'norin'
+          id: 'id321',
+          name: 'Azamat Bakhodirov',
+          login: '998997003344',
+          password: '***',
+          phone_number: '+998977509532',
+          type: 'staff'
+        },
+        {
+          id: 'id32431',
+          name: 'Kamila Shadimetova',
+          login: '998934443322',
+          password: '*******',
+          phone_number: '+998934443322',
+          type: 'hr'
+        },
+        {
+          id: 'id3243sd431',
+          name: 'Sultonova Farida',
+          login: '998954321134',
+          password: '*********',
+          phone_number: '+998954321134',
+          type: 'chief'
         }
       ]
     },

@@ -17,16 +17,18 @@
         </v-avatar>
             <span class="text">Kamila <br> Shadimetova</span>
             <v-spacer></v-spacer>
-        <v-btn
-          v-for="link in links"
-          :key="link"
-          active-class
-          @click="$router.push(`/${link.link}`)"
-          text
-        >
-          {{ link.title }}
-        </v-btn>
+            <TransitionGroup name="list" tag="button">
+               <v-btn
+              v-for="link in links"
+              :key="link"
+              active-class="startLunk"
+              :to="link.link"
+              text
+            >
+              {{ link.title }}
+            </v-btn>
 
+            </TransitionGroup>
         <v-spacer></v-spacer>
 
         <v-responsive max-width="260">
@@ -108,6 +110,10 @@ export default {
         link: 'menus'
       },
       {
+        title: 'Отчеты',
+        link: 'reports'
+      },
+      {
         title: 'Настройки',
         link: 'settings'
       }
@@ -121,5 +127,19 @@ export default {
 <style scoped>
 .trueClass {
   background: red;
+}
+.startLunk {
+  background: rgba(15, 158, 214, 0.37);
+  color: rgb(10, 84, 223) !important;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

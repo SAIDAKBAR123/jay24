@@ -24,7 +24,6 @@
             <v-btn
               color="primary"
               dark
-              class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
@@ -41,53 +40,36 @@
                 <v-row>
                   <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
                   >
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Dessert name"
+                      label="Полное имя персонала"
                     ></v-text-field>
                   </v-col>
                   <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
+                      v-model="editedItem.phone_number"
+                      label="Телефонный номер"
                     ></v-text-field>
                   </v-col>
                   <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
+                      v-model="editedItem.login"
+                      label="Имя пользователя"
                     ></v-text-field>
                   </v-col>
                   <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
                   >
-                    <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
-                    ></v-text-field>
+                    <v-select
+                      v-model="editedItem.type"
+                      :items="['admin', 'hr', 'chief', 'intern', 'staff']"
+                      label="Роль пользователя"
+                    ></v-select>
                   </v-col>
                 </v-row>
               </v-container>
@@ -100,14 +82,14 @@
                 text
                 @click="close"
               >
-                Cancel
+                Отмена
               </v-btn>
               <v-btn
                 color="blue darken-1"
                 text
                 @click="save"
               >
-                Save
+                Сохранить
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -117,13 +99,16 @@
             <p class="text-center text-h6 align-center pt-8">Are you sure you want to delete this item?</p>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="closeDelete">Отмена</v-btn>
+              <v-btn color="red darken-1" text @click="deleteItemConfirm">OK</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
+    </template>
+    <template v-slot:item.type="{ item }">
+      <v-chip class="px-4 rounded-lg" small :color="getTypeColor(item.type)" dark>{{ item.type }}</v-chip>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon
@@ -157,38 +142,38 @@ export default {
     dialogDelete: false,
     headers: [
       {
-        text: 'Dessert (100g serving)',
+        text: 'Полное имя',
         align: 'start',
         sortable: false,
         value: 'name'
       },
-      { text: 'Calories', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
-      { text: 'Actions', value: 'actions', sortable: false }
+      { text: 'Имя пользователя', value: 'login' },
+      { text: 'Пароль', value: 'password' },
+      { text: 'Телефон', value: 'phone_number' },
+      { text: 'Роль', value: 'type' },
+      { text: 'Действия', value: 'actions', sortable: false }
     ],
     desserts: [],
     editedIndex: -1,
     editedItem: {
       name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
+      login: '',
+      password: '',
+      phone_number: '',
+      type: ''
     },
     defaultItem: {
       name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
+      login: '',
+      password: '',
+      phone_number: '',
+      type: ''
     }
   }),
 
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'Добавить нового пользователя' : 'Изменить персонал'
     }
   },
 
@@ -206,77 +191,56 @@ export default {
   },
 
   methods: {
+    getTypeColor (value) {
+      switch (value) {
+        case 'hr':
+          return 'red lighten-1'
+        case 'chief':
+          return 'indigo lighten-2'
+        case 'staff':
+          return 'green lighten-2'
+        case 'admin':
+          return 'blue lighten-2'
+        case 'intern':
+          return 'orange lighten-2'
+
+        default:
+          return 'white lighten-4'
+      }
+    },
     initialize () {
       this.desserts = [
         {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0
+          id: 'id123',
+          name: 'Saidakbar Makhmudkhujaev',
+          login: '998998005598',
+          password: '*********',
+          phone_number: '+998977509532',
+          type: 'admin'
         },
         {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3
+          id: 'id321',
+          name: 'Azamat Bakhodirov',
+          login: '998997003344',
+          password: '***',
+          phone_number: '+998977509532',
+          type: 'staff'
         },
         {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0
+          id: 'id32431',
+          name: 'Kamila Shadimetova',
+          login: '998934443322',
+          password: '*******',
+          phone_number: '+998934443322',
+          type: 'hr'
         },
         {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7
+          id: 'id3243sd431',
+          name: 'Sultonova Farida',
+          login: '998954321134',
+          password: '*********',
+          phone_number: '+998954321134',
+          type: 'chief'
         }
       ]
     },
