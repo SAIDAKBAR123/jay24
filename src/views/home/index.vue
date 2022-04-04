@@ -147,5 +147,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+ .title {
+   color: red;
+ }
 </style>
