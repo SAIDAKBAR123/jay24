@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import logo from '../../assets/logo.svg'
+import logo from '../../assets/deliveryegy.svg'
 export default {
   data () {
     return {
