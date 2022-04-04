@@ -3,7 +3,7 @@
     <v-container class="py-0 fill-height" fluid>
       <v-row justify="space-between" align="center">
         <v-col cols="auto">
-          <img height="auto" width="130" :src="logo" alt="asd" srcset="" />
+          <img @click="$router.push('/')" height="auto" width="130" :src="logo" alt="asd" srcset="" />
         </v-col>
         <v-col cols="4" class="ml-16">
           <v-text-field

@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import './global.scss'
 import Headers from './components/header/index.vue'
 export default {
   components: {
