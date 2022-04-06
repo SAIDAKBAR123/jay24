@@ -51,20 +51,13 @@
           <div class="products d-flex justify-space-between">
             <v-row no-gutters>
               <v-col cols="6" md="2">
-                <v-card class="pa-2" tile>
+                <v-card class="pa-2 menu-fixed" tile>
                   <div class="aside-left">
                     <ul>
-                      <li>
-                        <a href="#" class="active line-animation">Burger</a>
-                      </li>
-                      <li>
-                        <a href="#" class="line-animation">Burger</a>
-                      </li>
-                      <li>
-                        <a href="#" class="line-animation">Burger</a>
-                      </li>
-                      <li>
-                        <a href="#" class="line-animation">Burger</a>
+                      <li v-for="block in 5" :key="block">
+                        <a href="#">
+                          Burger {{ block }}
+                        </a>
                       </li>
                     </ul>
                   </div>
@@ -73,22 +66,25 @@
               <v-col cols="12" sm="6" md="7">
                 <v-card class="pa-2">
                   <div class="aside-center">
-                    <div>
-                      <h2 class="font-weight-bold">NAPKINS AND CUTLERY</h2>
+                    <div class="mb-16">
+                      <div>
+                        <h2 class="font-weight-bold">NAPKINS AND CUTLERY</h2>
+                      </div>
+                      <ul class="products__list">
+                        <li v-for="product in products" :key="product.id" class="d-flex justify-space-between"
+                          @click="dialog3 = !dialog3">
+                          <div>
+                            <h2 class="title font-weight-bold">{{product.name}}</h2>
+                            <p class="font-weight-regular py-3">
+                              {{ product.text }}
+                            </p>
+                            <span class="font-weight-medium text-uppercase blue--text">NOk {{ product.price }}</span>
+                          </div>
+                          <v-img class="rounded-lg" lazy-src="https://picsum.photos/id/11/10/6" max-height="185"
+                            max-width="219" src="https://picsum.photos/id/11/500/300"></v-img>
+                        </li>
+                      </ul>
                     </div>
-                    <ul class="products__list">
-                      <li v-for="(item, index)  in 10" :key="index" class="d-flex justify-space-between"
-                        @click="dialog3 = !dialog3">
-                        <div>
-                          <h2 class="title font-weight-bold">Burgers</h2>
-                          <p class="font-weight-regular py-3">- 150 grams of fresh ground Beef from Solberg Pettersen.
-                          </p>
-                          <span class="font-weight-medium text-uppercase blue--text">NOk 184.00</span>
-                        </div>
-                        <v-img class="rounded-lg" lazy-src="https://picsum.photos/id/11/10/6" max-height="185"
-                          max-width="219" src="https://picsum.photos/id/11/500/300"></v-img>
-                      </li>
-                    </ul>
                   </div>
                 </v-card>
               </v-col>
@@ -117,7 +113,7 @@
                               <v-card flat>
                                 <v-card-text>
                                   <p class="text">{{ item.day }}</p>
-                                  <span class="subtext">{{item.time}}</span>
+                                  <span class="subtext">{{ item.time }}</span>
                                 </v-card-text>
                               </v-card>
                             </v-tab-item>
@@ -153,29 +149,25 @@
               </v-col>
             </v-row>
           </div>
-          <v-dialog v-model="dialog3" max-width="500px">
-            <v-card>
-              <v-card-title>
-                <span>Dialog 3</span>
+          <v-dialog class="rounded-10" v-model="dialog3" max-width="500px">
+            <v-card v-for="product in products" :key="product">
+              <v-card-title class="pa-0">
+                <span>
+                  <v-img lazy-src="https://picsum.photos/id/11/10/6" max-height="100%" max-width="100%"
+                    src="https://picsum.photos/id/11/500/300"></v-img>
+                </span>
+                <div text @click="dialog3 = false"
+                  class="cancel-btn rounded-circle d-flex justify-center align-center grey lighten-3 v-btn--absolute"
+                  style="width: 44px !important; height: 44px">
+                  <span class="display-1">&times;</span>
+                </div>
                 <v-spacer></v-spacer>
-                <v-menu bottom left>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn icon v-bind="attrs" v-on="on">
-                      <v-icon>mdi-dots-vertical</v-icon>
-                    </v-btn>
-                  </template>
-                  <v-list>
-                    <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
-                      <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
+                <v-card-text class="d-flex flex-column">
+                    <h2 class="text-h4 font-weight-bold mb-4">{{ product.name }}</h2>
+                    <span class="blue--text font-weight-bold mb-8">KZT {{product.price}}</span>
+                    <span>Тесто на выбор</span>
+                </v-card-text>
               </v-card-title>
-              <v-card-actions>
-                <v-btn color="primary" text @click="dialog3 = false">
-                  Close
-                </v-btn>
-              </v-card-actions>
             </v-card>
           </v-dialog>
         </v-container>
@@ -195,17 +187,8 @@
               <v-card class="pa-2" tile>
                 <h4 class="mb-5">Let's do this together</h4>
                 <ul>
-                  <li>
-                    <router-link to="#">For curiers</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#">For curiers</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#">For curiers</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#">For curiers</router-link>
+                  <li v-for="(item, index) in 5" :key="index">
+                    <router-link to="#" class="line-animation">For Companies</router-link>
                   </li>
                 </ul>
               </v-card>
@@ -214,17 +197,8 @@
               <v-card class="pa-2" tile>
                 <h4 class="mb-5">Wolt links</h4>
                 <ul>
-                  <li>
-                    <router-link to="#">For curiers</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#">For curiers</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#">For curiers</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#">For curiers</router-link>
+                  <li v-for="(item, index) in 5" :key="index">
+                    <router-link to="#" class="line-animation">Contact</router-link>
                   </li>
                 </ul>
               </v-card>
@@ -239,13 +213,7 @@
             <v-col sm="5" offset-sm="2" md="4" offset-md="0">
               <v-card class="pa-2" tile>
                 <ul>
-                  <li>
-                    <router-link to="#">Accessibility statement</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#">Accessibility statement</router-link>
-                  </li>
-                  <li>
+                  <li v-for="(item, index) in 3" :key="index">
                     <router-link to="#">Accessibility statement</router-link>
                   </li>
                 </ul>
@@ -254,25 +222,7 @@
             <v-col sm="5" offset-sm="2" md="3" offset-md="0">
               <v-card tile>
                 <ul class="socials">
-                  <li>
-                    <router-link to="#">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47 14 5.5 16 5.5H17.5V2.14C17.174 2.097 15.943 2 14.643 2C11.928 2 10 3.657 10 6.7V9.5H7V13.5H10V22H14V13.5Z"
-                          fill="#023462" />
-                      </svg>
-                    </router-link>
-                  </li>
-                  <li>
-                    <router-link to="#">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47 14 5.5 16 5.5H17.5V2.14C17.174 2.097 15.943 2 14.643 2C11.928 2 10 3.657 10 6.7V9.5H7V13.5H10V22H14V13.5Z"
-                          fill="#023462" />
-                      </svg>
-                    </router-link>
-                  </li>
-                  <li>
+                  <li v-for="(item, index) in 4" :key="index">
                     <router-link to="#">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -310,15 +260,39 @@ export default {
         day: 'Sunday',
         time: '10.00-20.00'
       }
-      ]
+      ],
+      products: [
+        {
+          id: Date.now(),
+          name: 'Pizza',
+          price: '54.000',
+          text: 'lorem ipsum'
+        },
+        {
+          id: Date.now(),
+          name: 'Burger',
+          price: '34.000',
+          text: 'lorem ipsum'
+        }
+      ],
+      activeBlock: null,
+      idBlocks: [1, 2, 3, 4, 5, 6]
     }
   }
 }
 </script>
 
 <style scoped>
-  .container {
-    position: relative;
-    z-index: 3 !important;
+  a {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .cancel-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 0 !important;
+    cursor: pointer;
   }
 </style>
