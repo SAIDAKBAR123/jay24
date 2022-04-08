@@ -3,12 +3,14 @@
     <template>
       <v-card class="mx-auto" max-width="100%">
         <div class="img-hover-zoom">
-        <v-img
+        <router-link :to="`/product/${element.title}`">
+          <v-img
           :src="element.image"
           class="imgs"
           :lazy-src="require('../../assets/loader.jpg')"
           height="200px"
         ></v-img>
+        </router-link>
         </div>
         <v-row align="center" :gutters="[10, 10]" justify="space-between">
           <v-col cols="auto">
