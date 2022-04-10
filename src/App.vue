@@ -69,7 +69,7 @@ export default {
       link: 'settings'
     }
     ],
-    dialog: true
+    dialog: false
   }),
   created () {
     // this.$vuetify.theme = 'dark'
