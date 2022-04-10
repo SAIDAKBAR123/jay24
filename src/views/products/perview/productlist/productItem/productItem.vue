@@ -1,8 +1,8 @@
 <template>
   <v-row>
-    <v-col cols="6" md="2">
+    <v-col cols="6" md="2" class="menu-fixed">
       <v-card class="pa-2">
-        <div class="aside-left menu-fixed">
+        <div class="aside-left">
           <ul class="d-flex flex-column">
             <li v-for="(item, index) in names" :key="index" @click="$vuetify.goTo(`#${item.name}`, options)">
               {{ item.name }}
@@ -16,10 +16,10 @@
         <div class="aside-center">
           <div class="mb-16" v-for="(i, index) in names" :key="index" :id="i.name" :ref="i.name">
             <div>
-              <h2 class="font-weight-bold">NAPKINS AND CUTLERY {{ i.name }}</h2>
+              <h2 class="font-weight-bold">{{ i.name }}</h2>
             </div>
             <ul class="products__list">
-              <li v-for="product in products" :key="product.id" class="d-flex justify-space-between" @click="openModal">
+              <li @click="toggleDialog" v-for="product in products" :key="product.id" class="d-flex justify-space-between">
                 <div>
                   <h2 class="title font-weight-bold">{{product.name}}</h2>
                   <p class="font-weight-regular py-3">
@@ -95,7 +95,7 @@
         </div>
       </v-card>
     </v-col>
-    <Modal :dialog3="dialog3" />
+    <Modal v-if="dialog" @toggle-dialog="toggleDialog" />
   </v-row>
 </template>
 
@@ -120,6 +120,7 @@ export default {
       easing: 'easeInOutCubic',
       easings: Object.keys(easings),
       name: 'burger',
+      dialog: false,
       names: [{
         name: 'burger'
       },
@@ -158,8 +159,8 @@ export default {
     }
   },
   methods: {
-    openModal () {
-      this.dialog3 = true
+    toggleDialog () {
+      this.dialog = !this.dialog
     }
   }
 }

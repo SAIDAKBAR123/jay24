@@ -1,5 +1,5 @@
 <template>
-  <footer class="products__footer mt-16 pt-10">
+  <footer class="products__footer mt-16 pt-10 px-6">
     <v-container fluid>
       <div>
         <img class="logo" @click="$router.push('/')" height="auto" width="130" :src="logo" alt="asd" srcset="" />

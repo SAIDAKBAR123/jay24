@@ -10,7 +10,9 @@
 
    .menu-fixed {
       position: sticky;
-      top: 80px;
+      top: 100px;
+      width: 300px;
+      max-height: 500px;
    }
 
    .aside-left {
