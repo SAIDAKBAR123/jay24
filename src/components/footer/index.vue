@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import './footer.scss'
 import logo from '../../assets/deliveryegy.svg'
 export default {
   data () {

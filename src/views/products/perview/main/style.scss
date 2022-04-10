@@ -2,11 +2,10 @@
   position: absolute;
   left: 0;
   top: 0px;
-  width: 100%;
-  height: 100vh;
+  background: #fff;
   .wrapper {
      position: relative;
-     height: 100%;
+     height: 100vh;
      width: 100%;
   }
   // .liner {
@@ -39,7 +38,8 @@
      }
   }
   .bottom {
-     margin-top: 300px;
+     margin-top: 250px;
+     padding-bottom: 100px;
      .title {
         font-size: 60px !important;
         font-weight: 700 !important;

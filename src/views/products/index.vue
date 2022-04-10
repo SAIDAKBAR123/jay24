@@ -2,15 +2,16 @@
   <div class="single-product">
     <div class="wrapper">
       <main-section />
-      <product-list :products="products" />
+      <product-list :items="items" :products="products" />
       <Footer />
     </div>
-    <button class="toTopBtn">
+    <button v-show="scY > 700" class="toTopBtn" @click="scrollToTop" id="mybutton">
       <span class="font-weight-black text-h6">&#8593;</span>
     </button>
   </div>
 </template>
 <script>
+import './products.scss'
 import MainSection from './perview/main/index.vue'
 import ProductList from './perview/productlist/ProductList.vue'
 import Footer from '../../components/footer/index.vue'
@@ -24,6 +25,8 @@ export default {
     return {
       dialog3: false,
       text: 'hello',
+      scTimer: 0,
+      scY: 0,
       items: [{
         tab: 'tab1',
         content: 'tab 1 content',
@@ -55,9 +58,23 @@ export default {
       idBlocks: [1, 2, 3, 4, 5, 6]
     }
   },
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
   methods: {
+    handleScroll: function () {
+      if (this.scTimer) return
+      this.scTimer = setTimeout(() => {
+        this.scY = window.scrollY
+        clearTimeout(this.scTimer)
+        this.scTimer = 0
+      }, 100)
+    },
     openModal () {
       this.dialog3 = !this.dialog3
+    },
+    scrollToTop () {
+      window.scrollTo(0, 0)
     }
   }
 }
@@ -79,7 +96,7 @@ export default {
   .toTopBtn {
     position: fixed;
     bottom: 40px;
-    right: 200px;
+    right: 100px;
     border-radius: 50%;
     background-color: #E3E3E5;
     width: 40px;

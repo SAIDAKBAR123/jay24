@@ -1,0 +1,111 @@
+.products {
+   min-height: 100vh;
+   padding-top: 100px;
+   color: #111;
+
+   .v-card {
+      border: none;
+      box-shadow: none !important;
+   }
+
+   .menu-fixed {
+      position: sticky;
+      top: 80px;
+   }
+
+   .aside-left {
+      ul {
+         list-style-type: none;
+
+         li {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: #777;
+            text-decoration: none;
+            width: 100%;
+            cursor: pointer;
+
+            &:hover {
+               color: inherit;
+            }
+
+            &.isActive {
+               border-bottom: 2px solid #111;
+               color: #111;
+            }
+
+            &.isActive.line-animation::after {
+               content: none;
+            }
+         }
+      }
+   }
+
+   .aside-right {
+      h3 {
+         font-size: 18px;
+      }
+
+      h5 {
+         font-size: 18px;
+      }
+
+      .tab {
+         .v-slide-group__wrapper {
+            background: #fff;
+            color: #111;
+         }
+
+         .v-tab {
+            padding: 0px !important;
+            margin-right: 22px;
+            color: #111111cd !important;
+            width: auto !important;
+            text-transform: capitalize !important;
+            justify-content: flex-start !important;
+            min-width: auto;
+            min-height: auto !important;
+         }
+      }
+
+      .v-window {
+         .v-card__text {
+            padding: 14px 0;
+         }
+      }
+
+      .text {
+         color: #111;
+         font-weight: 500;
+      }
+
+      .subtext {
+         color: #111;
+         opacity: 0.7;
+      }
+
+      ul {
+         list-style-type: none;
+      }
+   }
+
+   &__list {
+      list-style-type: none;
+      padding: 0 !important;
+      margin-top: 27px;
+
+      li {
+         cursor: pointer;
+         padding: 24px;
+         border-top: 1px solid #E3E3E5;
+         border-bottom: 1px solid #E3E3E5;
+         transition: 0.3s;
+
+         &:hover {
+            box-shadow: 0 0 4px;
+         }
+      }
+   }
+}

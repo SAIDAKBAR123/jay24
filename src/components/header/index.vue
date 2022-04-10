@@ -21,10 +21,10 @@
         <v-col cols="auto">
           <v-row no-gutters>
             <v-col cols="auto">
-              <v-btn text class="textFormat" color="grey darken-2" style="">Log in</v-btn>
+              <v-btn @click="$emit('toggle-login')" text class="textFormat" color="grey darken-2" style="">Log in</v-btn>
             </v-col>
             <v-col cols="auto">
-              <v-btn outlined color="grey darken-2" class="textFormat">Sign up</v-btn>
+              <v-btn @click="$emit('toggle-login')" outlined color="grey darken-2" class="textFormat">Sign up</v-btn>
             </v-col>
             <v-col cols="auto">
               <v-menu allow-overflow offset-y max-width="400px" nudge-bottom>
