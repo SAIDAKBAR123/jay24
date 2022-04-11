@@ -1,10 +1,10 @@
 <template>
-  <v-row>
+  <v-row class="products pt-10">
     <v-col cols="6" md="2" class="menu-fixed">
       <v-card class="pa-2">
         <div class="aside-left">
           <ul class="d-flex flex-column">
-            <li v-for="(item, index) in names" :key="index" @click="$vuetify.goTo(`#${item.name}`, options)">
+            <li v-for="item in names" :key="item.name" @click="$vuetify.goTo(`#${item.name}`, options)">
               {{ item.name }}
             </li>
           </ul>
@@ -14,22 +14,22 @@
     <v-col cols="6" md="7">
       <v-card class="pa-2">
         <div class="aside-center">
-          <div class="mb-16" v-for="(i, index) in names" :key="index" :id="i.name" :ref="i.name">
+          <div class="mb-16" v-for="name in names" :key="name" :id="name.name">
             <div>
-              <h2 class="font-weight-bold">{{ i.name }}</h2>
+              <h2 class="font-weight-bold">{{ name.name }}</h2>
             </div>
             <ul class="products__list">
-              <li @click="toggleDialog" v-for="product in products" :key="product.id" class="d-flex justify-space-between">
+              <li @click="toggleDialog" v-for="item in products" :key="item.name" class="d-flex justify-space-between">
                 <div>
-                  <h2 class="title font-weight-bold">{{product.name}}</h2>
+                  <h2 class="title font-weight-bold">{{ item.name }}</h2>
                   <p class="font-weight-regular py-3">
-                    {{ product.text }}
+                    {{ item.text }}
                   </p>
                   <span class="font-weight-medium text-uppercase blue--text" ref="product">NOk
-                    {{ product.price }}</span>
+                    {{ item.price }}</span>
                 </div>
                 <v-img class="rounded-lg" lazy-src="https://picsum.photos/id/11/10/6" max-height="185" max-width="219"
-                  src="https://cdn.pixabay.com/photo/2019/02/26/16/45/burger-4022487_960_720.jpg"></v-img>
+                  :src="item.image"></v-img>
               </li>
             </ul>
           </div>
@@ -48,26 +48,6 @@
           </div>
           <div class="mt-8">
             <h5>Opening times</h5>
-            <div class="tab">
-              <v-card>
-                <v-tabs v-model="tab" dark>
-                  <v-tab v-for="item in items" :key="item.tab">
-                    {{ item.tab }}
-                  </v-tab>
-                </v-tabs>
-
-                <v-tabs-items v-model="tab">
-                  <v-tab-item v-for="item in items" :key="item.tab">
-                    <v-card flat>
-                      <v-card-text>
-                        <p class="text">{{ item.day }}</p>
-                        <span class="subtext">{{ item.time }}</span>
-                      </v-card-text>
-                    </v-card>
-                  </v-tab-item>
-                </v-tabs-items>
-              </v-card>
-            </div>
             <p class="text mt-6" ref="burger">
               If you have allergies or other dietary restrictions, please contact the restaurant. The
               restaurant will provide food-specific information upon request.
@@ -100,7 +80,7 @@
 </template>
 
 <script>
-import Modal from './modal/index.vue'
+import Modal from './Modal.vue'
 import * as easings from 'vuetify/lib/services/goto/easing-patterns'
 export default {
   props: ['products'],
@@ -116,44 +96,26 @@ export default {
       name: 'burger',
       dialog: false,
       names: [{
-        name: 'burger'
+        name: 'Burger'
       },
       {
-        name: 'lavash'
-      },
-      {
-        name: 'pizza'
-      },
-      {
-        name: 'chiz'
-      },
-      {
-        name: 'zzzz'
+        name: 'Lavash'
       }
       ]
     }
   },
   computed: {
-    target () {
-      const value = this[this.type]
-      if (!isNaN(value)) return Number(value)
-      else return value
-    },
     options () {
       return {
         duration: this.duration,
         offset: this.offset,
         easing: this.easing
       }
-    },
-    element () {
-      if (this.selected === 'Button') return this.$refs.burger
-      else if (this.selected === 'Radio group') return this.$refs.radio
-      else return null
     }
   },
   methods: {
-    toggleDialog () {
+    toggleDialog (e) {
+      console.log(e)
       this.dialog = !this.dialog
     }
   }

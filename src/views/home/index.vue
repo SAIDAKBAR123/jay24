@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import Product from '../../services/products'
 import Card from '../../components/cards'
 export default {
   components: {
@@ -143,6 +144,20 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    getRestaurants () {
+      Product.getRestaurants().then(res => {
+        console.log('222', res)
+        this.restaurants = res.merchants
+        console.log(this.restaurants.merchants)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  mounted () {
+    this.getRestaurants()
   }
 }
 </script>

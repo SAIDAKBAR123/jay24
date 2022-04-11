@@ -3,7 +3,7 @@
     <v-container class="py-0 fill-height" fluid>
       <v-row justify="space-between" align="center">
         <v-col cols="auto">
-          <img @click="$router.push('/')" height="auto" width="130" :src="logo" alt="asd" srcset="" />
+          <img class="logo" @click="$router.push('/')" height="auto" width="130" :src="logo" alt="asd" srcset="" />
         </v-col>
         <v-col cols="4" class="ml-16">
           <v-text-field
@@ -20,11 +20,14 @@
         </v-col>
         <v-col cols="auto">
           <v-row no-gutters>
-            <v-col cols="auto">
-              <v-btn @click="$emit('toggle-login')" text class="textFormat" color="grey darken-2" style="">Log in</v-btn>
+            <v-col v-if="userExist" cols="auto">
+              <v-btn  text class="textFormat" outlined color="grey darken-2">My order</v-btn>
             </v-col>
-            <v-col cols="auto">
-              <v-btn @click="$emit('toggle-login')" outlined color="grey darken-2" class="textFormat">Sign up</v-btn>
+            <v-col v-if="!userExist" cols="auto">
+              <v-btn @click="$emit('toggle-modal-login')" text class="textFormat" color="grey darken-2" style="">Log in</v-btn>
+            </v-col>
+            <v-col v-if="!userExist" cols="auto">
+              <v-btn @click="$emit('toggle-modal-register')" outlined color="grey darken-2" class="textFormat">Sign up</v-btn>
             </v-col>
             <v-col cols="auto">
               <v-menu allow-overflow offset-y max-width="400px" nudge-bottom>
@@ -36,7 +39,7 @@
                     text
                     color="grey darken-2"
                     class="textFormat"
-                    >English <v-icon right> mdi-chevron-down </v-icon></v-btn
+                    >English <v-icon right>mdi-chevron-down </v-icon></v-btn
                   >
                 </template>
                 <v-sheet rounded class="mr-4" color="white" width="400px" height="400px">
@@ -56,8 +59,23 @@ import logo from '../../assets/deliveryegy.svg'
 export default {
   data () {
     return {
-      logo
+      logo,
+      userExist: false,
+      user: localStorage.getItem('user')
     }
+  },
+  methods: {
+    checkUser () {
+      console.log(this.user)
+      if (this.user) {
+        this.userExist = true
+      } else {
+        this.userExist = false
+      }
+    }
+  },
+  mounted () {
+    this.checkUser()
   }
 }
 </script>
@@ -69,5 +87,8 @@ $text-field-outlined-fieldset-border-width: 0.2px;
 }
 .v-btn::before {
   background-color: transparent;
+}
+.logo {
+  cursor: pointer;
 }
 </style>
