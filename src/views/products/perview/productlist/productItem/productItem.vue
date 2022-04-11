@@ -109,12 +109,6 @@ export default {
   },
   data () {
     return {
-      type: 'number',
-      number: 9999,
-      selector: '#5',
-      selections: ['#5', '#second', '#third'],
-      selected: 'Button',
-      elements: ['Button', 'Radio group'],
       duration: 300,
       offset: 0,
       easing: 'easeInOutCubic',

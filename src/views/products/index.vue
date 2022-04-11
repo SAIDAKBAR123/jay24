@@ -5,7 +5,7 @@
       <product-list :items="items" :products="products" />
       <Footer />
     </div>
-    <button v-show="scY > 700" class="toTopBtn" @click="scrollToTop" id="mybutton">
+    <button v-show="scY > 750" class="toTopBtn" @click="scrollToTop" id="mybutton">
       <span class="font-weight-black text-h6">&#8593;</span>
     </button>
   </div>
