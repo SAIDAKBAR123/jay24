@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-parallax dark src="https://cdn.pixabay.com/photo/2019/07/29/05/52/burger-4369973_960_720.jpg">
+    <v-parallax dark :src="main.background_image">
         <v-row>
           <v-col cols="12">
             <v-container>
@@ -11,7 +11,7 @@
                 </div>
                 <div class="bottom">
                   <h1 class="text-h4 font-weight-thin mb-4 title">
-                    BurgerMan Sentrum
+                    {{ main.name }}
                   </h1>
                   <p class="subtitle">Utforsk det italienske kjøkkenet.</p>
                   <div class="order">
@@ -47,7 +47,18 @@
 </template>
 
 <script>
+import Service from '../../../services/products'
 export default {
-  // props: ['products']
+  props: ['main'],
+  methods: {
+    getRestaurantById () {
+      Service.getRestaurantById(this.$route.params.id).then(res => {
+        console.log(res)
+      })
+    }
+  },
+  created () {
+    this.getRestaurantById()
+  }
 }
 </script>

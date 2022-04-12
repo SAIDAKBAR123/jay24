@@ -8,7 +8,11 @@
       >
         <v-card class="rounded-lg d-flex align-center flex-column ma-2">
           <v-card-text>
+<<<<<<< HEAD
             <div class="text-center text-h4 text-[#119C2B] success--text mb-2">{{ order.address }}</div>
+=======
+            <div class="text-center text-[#119C2B] title success--text mb-2">{{ getStatus(order.status) }}</div>
+>>>>>>> e8609c36fefa4ea3a00bda7f5dd52d57a8d5536e
           </v-card-text>
           <v-img class="rounded-lg" :lazy-src="require('../../assets/loader.jpg')" max-height="160" max-width="260"
             :src="order.image" alt="" />
@@ -31,6 +35,24 @@
 
 <script>
 export default {
-  props: ['orderList']
+  props: ['orderList'],
+  methods: {
+    getStatus (status) {
+      switch (status) {
+        case 'new':
+          return 'New'
+        case 'restaurant-proccess':
+          return 'Restaurant process'
+        case 'restaurant-ready':
+          return 'Restaurant ready'
+        case 'courier-accepted':
+          return 'Courier accepted'
+        case 'courier-delivered':
+          return 'Courier delivered'
+        default:
+          return 'New'
+      }
+    }
+  }
 }
 </script>
