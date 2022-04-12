@@ -38,6 +38,11 @@
 <script>
 export default {
   props: ['product'],
+  data () {
+    return {
+      loading: false
+    }
+  },
   methods: {
     toggleDialog (e) {
       if (e.target === this.$refs.wrapper) {

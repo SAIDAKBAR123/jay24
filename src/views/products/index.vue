@@ -1,6 +1,6 @@
 <template>
   <div class="single-product">
-      <main-section />
+      <main-section :main="merchant"/>
       <!-- <product-list :items="items" :products="products" /> -->
       <product-item v-for="product in products" :product="product" :key="product" />
       <Footer />
@@ -27,6 +27,7 @@ export default {
       text: 'hello',
       scTimer: 0,
       scY: 0,
+      merchant: {},
       products: [],
       productsCategoryID: [],
       activeBlock: null
@@ -50,15 +51,23 @@ export default {
     getProducts () {
       console.log(this.$route.params.id)
       Product.getProducts(this.$route.params.id).then((res) => {
+        console.log(res)
         this.products = res.products
         this.productsCategoryID = res.products.forEach(el => {
           return el.id
         })
       })
+    },
+    getRestaurantById () {
+      Product.getRestaurantById(this.$route.params.id).then(res => {
+        console.log(res)
+        this.merchant = res
+      })
     }
   },
   created () {
     this.getProducts()
+    this.getRestaurantById()
   },
   mounted () {
     window.addEventListener('scroll', this.handleScroll)

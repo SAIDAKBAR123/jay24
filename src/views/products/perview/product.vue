@@ -61,6 +61,7 @@ export default {
   },
   data () {
     return {
+      loading: false,
       duration: 300,
       offset: 0,
       easing: 'easeInOutCubic',
