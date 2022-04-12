@@ -51,10 +51,12 @@ export default {
       const data = this.form
       this.Login(data)
         .then((res) => {
-          console.log(res)
+          if (res.exist) {
+            window.location.href = '/'
+          }
         })
-        .finally(() => {
-          window.location.href = '/'
+        .finally((res) => {
+          console.log(res)
           this.$emit('toggle-login-modal')
         })
     },

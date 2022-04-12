@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: JSON.parse(localStorage.getItem('user')) || null
+    user: JSON.parse(localStorage.getItem('user')) || null,
+    productImage: JSON.parse(localStorage.getItem('image'))
   },
   mutations: {
     SET_LOGIN (state, payload) {
@@ -16,6 +17,10 @@ export default new Vuex.Store({
     SET_REGISTER (state, payload) {
       localStorage.setItem('user', JSON.stringify(payload))
       state.user = payload
+    },
+    SET_PICTURE (state, payload) {
+      localStorage.setItem('image', JSON.stringify(payload))
+      state.productImage = payload
     }
   },
   actions: {
@@ -28,7 +33,7 @@ export default new Vuex.Store({
         })
           .then(res => {
             commit('SET_LOGIN', res)
-            console.log(res)
+            console.log('login', res)
             resolve(res)
           })
       })
@@ -46,6 +51,9 @@ export default new Vuex.Store({
             resolve(res)
           })
       })
+    },
+    setImage ({ commit }, data) {
+      commit('SET_PICTURE', data)
     }
   },
   modules: {

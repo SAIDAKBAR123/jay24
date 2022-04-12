@@ -1,7 +1,6 @@
 <template>
    <div class="dialog" @click="toggleDialog" ref="wrapper">
      <v-card
-    :loading="loading"
     class="mx-auto my-12 rounded-lg"
     max-width="550"
   >

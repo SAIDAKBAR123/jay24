@@ -10,7 +10,10 @@ export default new Vuetify({
         success: '#119C2B',
         main: '#000000',
         primary: '#4285F4',
-        gray: '#EFEFF4'
+        gray: '#EFEFF4',
+        red: '#F2271C',
+        grayLight: '#9E9E9E',
+        grayBack: '#F6F8F9'
       }
     }
   }

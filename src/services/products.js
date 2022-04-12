@@ -4,7 +4,8 @@ const req = {
   getRestaurants: () => request({ method: 'get', url: '/merchant/list' }),
   getCategories: (guid) => request({ method: 'get', url: `/category/get/${guid}` }),
   getProducts: (guid) => request({ method: 'get', url: `/merchant/products/${guid}` }),
-  getOrderList: () => request({ method: 'get', url: '/order/list' })
+  getOrderList: () => request({ method: 'get', url: '/order/list' }),
+  getUserOrderList: (guid) => request({ method: 'get', url: `/user/${guid}/orders` })
 }
 
 export default req

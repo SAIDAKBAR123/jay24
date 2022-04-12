@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <Headers @toggle-modal-login="toggleLogin" @toggle-modal-register="toggleRegister" />
+    <Headers @toggle-modal-login="toggleLogin" @toggle-modal-register="toggleRegister" @toggle-cart-modal="toggleCartModal" />
     <v-main class="grey lighten-3">
       <v-container fluid>
         <router-view />
@@ -8,6 +8,7 @@
     </v-main>
     <Login v-if="loginModal" @toggle-login-modal="toggleLogin" />
     <Register v-if="registerModal" @toggle-register-modal="toggleRegister" />
+    <CartModal v-if="isCartActive" @toggle-cart-modal="toggleCartModal" @close-modal="closeCart" />
   </v-app>
 </template>
 
@@ -16,11 +17,13 @@ import './global.scss'
 import Headers from './components/header/index.vue'
 import Login from './components/loginModal/Login.vue'
 import Register from './components/registerModal/index.vue'
+import CartModal from './components/cartModal/index.vue'
 export default {
   components: {
     Headers,
     Login,
-    Register
+    Register,
+    CartModal
   },
   data: () => ({
     links: [{
@@ -45,7 +48,8 @@ export default {
     }
     ],
     loginModal: false,
-    registerModal: false
+    registerModal: false,
+    isCartActive: false
   }),
   created () {
     // this.$vuetify.theme = 'dark'
@@ -56,6 +60,13 @@ export default {
     },
     toggleRegister () {
       this.registerModal = !this.registerModal
+    },
+    toggleCartModal () {
+      console.log('eeee')
+      this.isCartActive = !this.isCartActive
+    },
+    closeCart () {
+      this.isCartActive = false
     }
   }
 }

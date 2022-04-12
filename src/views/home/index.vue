@@ -148,9 +148,7 @@ export default {
   methods: {
     getRestaurants () {
       Product.getRestaurants().then(res => {
-        console.log('222', res)
         this.restaurants = res.merchants
-        console.log(this.restaurants.merchants)
       }).catch(err => {
         console.log(err)
       })

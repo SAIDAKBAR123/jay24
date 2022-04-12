@@ -19,7 +19,6 @@ export default {
   methods: {
     getOrderList () {
       ProductService.getOrderList().then((res) => {
-        console.log('orderlist', res)
         this.orderList = res.orders
       })
     }

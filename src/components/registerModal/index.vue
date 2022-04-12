@@ -58,11 +58,9 @@ export default {
       const data = this.form
       this.registration(data)
         .then((res) => {
-          console.log(res)
-        })
-        .finally(() => {
-          window.location.href = '/'
-          this.$emit('toggle-register-modal')
+          if (res.guid) {
+            window.location.href = '/'
+          }
         })
     },
     toggleRegister (e) {
