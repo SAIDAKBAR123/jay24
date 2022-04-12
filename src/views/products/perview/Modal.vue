@@ -6,18 +6,18 @@
     max-width="550"
   >
     <v-img
-      height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      height="300"
+      :src="product.image"
     ></v-img>
 
-    <v-card-title class="font-weight-bold text-h4">Cafe Badilico</v-card-title>
+    <v-card-title class="font-weight-bold text-h4">{{ product.name }}</v-card-title>
 
     <v-card-text>
       <v-row
         align="center"
         class="mx-0"
       >
-        <p class="blue--text font-weight-bold mr-4">NOK 219.00</p>
+        <p class="blue--text font-weight-bold mr-4">{{ product.price }} сум</p>
         <div class="primary py-1 px-4 rounded-lg white--text">
           Popular
         </div>
@@ -26,33 +26,9 @@
       <div class="mt-8">Jackburger, graffifries og valgfri box 0,33 Cola eller Cola uten sukker.</div>
     </v-card-text>
 
-    <v-divider class="mx-4"></v-divider>
-
-    <v-card-title>Tonight's availability</v-card-title>
-
-    <v-card-text>
-      <v-chip-group
-        v-model="selection"
-        active-class="deep-purple accent-4 white--text"
-        column
-      >
-        <v-chip>5:30PM</v-chip>
-
-        <v-chip>7:30PM</v-chip>
-
-        <v-chip>8:00PM</v-chip>
-
-        <v-chip>9:00PM</v-chip>
-      </v-chip-group>
-    </v-card-text>
-
     <v-card-actions>
-      <v-btn
-        color="deep-purple lighten-2"
-        text
-        @click="reserve"
-      >
-        Reserve
+      <v-btn text color="white" class="primary py-6 px-12 rounded-lg" style="text-transform: unset; letter-spacing: 1px;">
+         Добавить в корзину
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -61,10 +37,12 @@
 
 <script>
 export default {
+  props: ['product'],
   methods: {
     toggleDialog (e) {
       if (e.target === this.$refs.wrapper) {
         this.$emit('toggle-dialog')
+        console.log(this.product)
       }
     }
   }

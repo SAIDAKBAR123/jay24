@@ -2,7 +2,7 @@
   <div class="single-product">
       <main-section />
       <!-- <product-list :items="items" :products="products" /> -->
-        <product-item :products="products" />
+      <product-item v-for="product in products" :product="product" :key="product" />
       <Footer />
     <button v-show="scY > 750" class="toTopBtn" @click="scrollToTop">
        <v-icon>mdi-chevron-up</v-icon>
@@ -28,11 +28,9 @@ export default {
       scTimer: 0,
       scY: 0,
       products: [],
+      productsCategoryID: [],
       activeBlock: null
     }
-  },
-  mounted () {
-    window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
     handleScroll: function () {
@@ -50,13 +48,20 @@ export default {
       window.scrollTo(0, 0)
     },
     getProducts () {
-      Product.getProducts().then((res) => {
+      console.log(this.$route.params.id)
+      Product.getProducts(this.$route.params.id).then((res) => {
         this.products = res.products
+        this.productsCategoryID = res.products.forEach(el => {
+          return el.id
+        })
       })
     }
   },
   created () {
     this.getProducts()
+  },
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>

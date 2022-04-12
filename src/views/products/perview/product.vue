@@ -1,89 +1,61 @@
 <template>
   <v-row class="products pt-10">
     <v-col cols="6" md="2" class="menu-fixed">
-      <v-card class="pa-2">
+      <v-card class="pa-2" style="background: transparent;">
         <div class="aside-left">
           <ul class="d-flex flex-column">
-            <li v-for="item in names" :key="item.name" @click="$vuetify.goTo(`#${item.name}`, options)">
-              {{ item.name }}
+            <li @click="$vuetify.goTo(`#${categories.name}`, options)">
+              {{ categories.name }}
             </li>
           </ul>
         </div>
       </v-card>
     </v-col>
-    <v-col cols="6" md="7">
-      <v-card class="pa-2">
+    <v-col cols="8" md="8">
+      <div class="pa-2">
         <div class="aside-center">
-          <div class="mb-16" v-for="name in names" :key="name" :id="name.name">
+          <div class="mb-16" :id="categories.name">
             <div>
-              <h2 class="font-weight-bold">{{ name.name }}</h2>
+              <h2 class="font-weight-bold text-h4">{{ categories.name }}</h2>
             </div>
-            <ul class="products__list">
-              <li @click="toggleDialog" v-for="item in products" :key="item.name" class="d-flex justify-space-between">
-                <div>
-                  <h2 class="title font-weight-bold">{{ item.name }}</h2>
-                  <p class="font-weight-regular py-3">
-                    {{ item.text }}
-                  </p>
-                  <span class="font-weight-medium text-uppercase blue--text" ref="product">NOk
-                    {{ item.price }}</span>
-                </div>
-                <v-img class="rounded-lg" lazy-src="https://picsum.photos/id/11/10/6" max-height="185" max-width="219"
-                  :src="item.image"></v-img>
-              </li>
-            </ul>
+            <v-row no-gutters class="mt-6">
+              <v-col cols="12" sm="4" v-for="i in 2" :key="i" class="ma-2">
+                <v-card :loading="loading" class="mx-auto rounded-lg">
+                  <v-img height="220" :src="product.image"></v-img>
+
+                  <v-card-text>
+                    <p class="primary--text font-weight-bold text-h6">{{ product.price }} сум</p>
+                    <p class="main--text text-h6 font-weight-medium">
+                      {{ product.name }}
+                    </p>
+                    <p class="font-weight-medium main--text" style="opacity: 0.7;">
+                      Булочка гамбургер, соленые огурцы
+                    </p>
+                  </v-card-text>
+                  <v-card-actions class="pa-4">
+                    <v-btn @click="toggleDialog(product.id)" text
+                      class="gray py-6 rounded-lg main--text font-weight-medium"
+                      style="width: 100% !important; text-transform: unset; letter-spacing: 1px;">
+                      В корзину
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
           </div>
         </div>
-      </v-card>
+      </div>
     </v-col>
-    <v-col cols="6" md="2">
-      <v-card class="pa-2">
-        <div class="aside-right">
-          <h3 class="font-weight-bold">Restaurant information</h3>
-          <div class="address d-flex flex-column space-top1 mt-6">
-            <h5 class="py-1 font-weight-black">Address</h5>
-            <span class="py-1 text text">Skippergata 6A</span>
-            <span class="py-1 subtext">9008 Tromsø</span>
-            <a href="#" class="text-decoration-none font-weight-black blue--text mt-3">See map</a>
-          </div>
-          <div class="mt-8">
-            <h5>Opening times</h5>
-            <p class="text mt-6" ref="burger">
-              If you have allergies or other dietary restrictions, please contact the restaurant. The
-              restaurant will provide food-specific information upon request.
-            </p>
-            <a href="#" class="font-weight-bold blue--text">+4794096129</a>
-            <a href="#" class="font-weight-bold blue--text mt-6 d-block" size="14">See more information</a>
-            <div class="mt-6">
-              <h5>Categories</h5>
-              <ul class="d-flex pa-0">
-                <li>
-                  <a href="#" class="blue--text font-weight-bold mr-2 text-decoration-none">American</a>
-                </li>
-                <li>
-                  <a href="#" class="blue--text font-weight-bold mr-2 text-decoration-none">Dessert</a>
-                </li>
-                <li>
-                  <a href="#" class="blue--text font-weight-bold mr-2 text-decoration-none">Burger</a>
-                </li>
-                <li>
-                  <a href="#" class="blue--text font-weight-bold mr-2 text-decoration-none">BBQ</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </v-card>
-    </v-col>
-    <Modal v-if="dialog" @toggle-dialog="toggleDialog" />
+    <Modal v-if="dialog" @toggle-dialog="toggleDialog" :product="product" />
   </v-row>
 </template>
 
 <script>
 import Modal from './Modal.vue'
 import * as easings from 'vuetify/lib/services/goto/easing-patterns'
+import Product from '../../../services/products'
 export default {
-  props: ['products'],
+  props: ['product'],
   components: {
     Modal
   },
@@ -95,6 +67,7 @@ export default {
       easings: Object.keys(easings),
       name: 'burger',
       dialog: false,
+      categories: [],
       names: [{
         name: 'Burger'
       },
@@ -115,9 +88,20 @@ export default {
   },
   methods: {
     toggleDialog (e) {
-      console.log(e)
       this.dialog = !this.dialog
+      this.productId = this.product.find(product => product.id === e)
+      console.log('product', this.product)
+    },
+    getCategories () {
+      const categoryId = this.product.category_id
+      Product.getCategories(categoryId).then((res) => {
+        console.log('category', res)
+        this.categories = res
+      })
     }
+  },
+  created () {
+    this.getCategories()
   }
 }
 </script>

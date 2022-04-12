@@ -20,8 +20,34 @@
         </v-col>
         <v-col cols="auto">
           <v-row no-gutters>
+            <v-col v-if="userExist" cols="auto mr-2">
+              <v-menu offset-y max-width="200px" nudge-bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    :ripple="false"
+                    text
+                    class="textFormat"
+                    color="grey darken-2">
+                    <v-icon>mdi-account-circle-outline</v-icon>
+                  </v-btn>
+                </template>
+               <v-list>
+              <v-list-item v-list-item>
+                <v-btn
+                    text
+                    class="textFormat"
+                    >
+                    <v-icon class="mr-2">mdi-account-arrow-left-outline</v-icon>
+                    Log out
+                  </v-btn>
+                </v-list-item>
+              </v-list>
+              </v-menu>
+            </v-col>
             <v-col v-if="userExist" cols="auto">
-              <v-btn  text class="textFormat" outlined color="grey darken-2">My order</v-btn>
+              <v-btn @click="$router.push('/order')" text class="textFormat" outlined color="grey darken-2">My order</v-btn>
             </v-col>
             <v-col v-if="!userExist" cols="auto">
               <v-btn @click="$emit('toggle-modal-login')" text class="textFormat" color="grey darken-2" style="">Log in</v-btn>

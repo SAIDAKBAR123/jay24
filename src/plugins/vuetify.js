@@ -4,6 +4,14 @@ import Vuetify from 'vuetify/lib/framework'
 Vue.use(Vuetify)
 
 export default new Vuetify({
-//   theme: { dark: false }
-
+  theme: {
+    themes: {
+      light: {
+        success: '#119C2B',
+        main: '#000000',
+        primary: '#4285F4',
+        gray: '#EFEFF4'
+      }
+    }
+  }
 })

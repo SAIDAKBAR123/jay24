@@ -3,7 +3,7 @@
   left: 0;
   top: 0px;
   width: 100%;
-  background: #fff;
+  background: #F5F4F2;
   .wrapper {
     position: relative;
     height: 100vh;
@@ -61,56 +61,6 @@
         }
       }
     }
-    
-    &__status {
-      padding: 28px;
-      border-radius: 12px !important;
-      width: 100%;
-      z-index: 3;
-      color: #1111;
-      position: absolute;
-      bottom: -150px;
-      z-index: 999 !important;
-      left: 0;
-      box-shadow: 0 4 4px rgba(0,0,0,0.5);
-      
-      .number {
-        color: #111;
-        span {
-          font-size: 32px;
-          font-weight: 700;
-        }
-        
-        p {
-          font-size: 12px;
-        }
-      }
-      
-      .aside-left {
-        button {
-          border: 1px solid #E3E3E5 !important;
-          padding: 20px 24px !important;
-          border-radius: 8px !important;
-          text-transform: capitalize !important;
-        }
-      }
-      
-      .aside-right {
-        input:placeholder {
-          color: #111;
-        }
-        .input {
-          border: 1px solid #E3E3E5;
-          color: #111;
-          padding: 8px 12px;
-          border-radius: 4px;
-          
-          input:focus {
-            outline: none;
-          }
-        }
-      }
-    }
   }
   
   .products {
@@ -124,7 +74,7 @@
     
     .menu-fixed {
       position: sticky;
-      top: 100px;
+      top: 80px;
       width: 300px;
       max-height: 500px;
     }
@@ -135,12 +85,13 @@
         
         li {
           margin-top: 10px;
-          font-size: 14px;
+          font-size: 18px;
           font-weight: 500;
-          text-transform: uppercase;
-          color: #777;
+          color: #000;
           text-decoration: none;
+          text-transform: unset;
           width: 100%;
+          border-bottom: 2px solid #111;
           cursor: pointer;
           
           &:hover {
