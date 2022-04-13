@@ -7,7 +7,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: JSON.parse(localStorage.getItem('user')) || null,
-    productImage: JSON.parse(localStorage.getItem('image'))
+    productImage: JSON.parse(localStorage.getItem('image')),
+    products: []
+  },
+  getters: {
+    products: (state) => state.products
   },
   mutations: {
     SET_LOGIN (state, payload) {
@@ -19,8 +23,11 @@ export default new Vuex.Store({
       state.user = payload
     },
     SET_PICTURE (state, payload) {
-      localStorage.setItem('image', JSON.stringify(payload))
       state.productImage = payload
+    },
+    SAVE_PRODUCT (state, payload) {
+      state.products = [...state.products, payload]
+      console.log('pushed product', state.products)
     }
   },
   actions: {
@@ -30,12 +37,11 @@ export default new Vuex.Store({
           method: 'POST',
           url: '/user/login',
           data: data
+        }).then((res) => {
+          commit('SET_LOGIN', res)
+          console.log('login', res)
+          resolve(res)
         })
-          .then(res => {
-            commit('SET_LOGIN', res)
-            console.log('login', res)
-            resolve(res)
-          })
       })
     },
     registration ({ commit }, data) {
@@ -44,18 +50,20 @@ export default new Vuex.Store({
           method: 'POST',
           url: '/user/create',
           data
+        }).then((res) => {
+          commit('SET_REGISTER', res.guid)
+          console.log(res)
+          resolve(res)
         })
-          .then(res => {
-            commit('SET_REGISTER', res.guid)
-            console.log(res)
-            resolve(res)
-          })
       })
     },
     setImage ({ commit }, data) {
       commit('SET_PICTURE', data)
+    },
+    saveProduct ({ commit }, data) {
+      console.log('vuex', data)
+      commit('SAVE_PRODUCT', data)
     }
   },
-  modules: {
-  }
+  modules: {}
 })

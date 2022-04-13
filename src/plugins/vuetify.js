@@ -13,7 +13,8 @@ export default new Vuetify({
         gray: '#EFEFF4',
         red: '#F2271C',
         grayLight: '#9E9E9E',
-        grayBack: '#F6F8F9'
+        grayBack: '#F6F8F9',
+        grayDark: '#5B6871'
       }
     }
   }

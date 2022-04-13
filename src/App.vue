@@ -62,7 +62,6 @@ export default {
       this.registerModal = !this.registerModal
     },
     toggleCartModal () {
-      console.log('eeee')
       this.isCartActive = !this.isCartActive
     },
     closeCart () {

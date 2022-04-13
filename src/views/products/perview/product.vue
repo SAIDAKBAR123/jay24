@@ -33,7 +33,7 @@
                     </p>
                   </v-card-text>
                   <v-card-actions class="pa-4">
-                    <v-btn @click="toggleDialog(product.id)" text
+                    <v-btn @click="toggleDialog(item.name)" text
                       class="gray py-6 rounded-lg main--text font-weight-medium"
                       style="width: 100% !important; text-transform: unset; letter-spacing: 1px;">
                       В корзину
@@ -46,7 +46,7 @@
         </div>
       </div>
     </v-col>
-    <Modal v-if="dialog" @toggle-dialog="toggleDialog" :product="product" />
+    <Modal v-if="dialog" @toggle-dialog="toggleDialog" :product="product" :option="option" />
   </v-row>
 </template>
 
@@ -69,6 +69,7 @@ export default {
       name: 'burger',
       dialog: false,
       categories: [],
+      option: [],
       names: [{
         name: 'Burger'
       },
@@ -90,13 +91,14 @@ export default {
   methods: {
     toggleDialog (e) {
       this.dialog = !this.dialog
-      this.productId = this.product.find(product => product.id === e)
-      console.log('product', this.product)
+      console.log(e)
+      console.log(this.product.options)
+      this.option = this.product.options.find(product => product.name === e)
+      console.log('product', this.option)
     },
     getCategories () {
       const categoryId = this.product.category_id
       Product.getCategories(categoryId).then((res) => {
-        console.log('category', res)
         this.categories = res
       })
     }

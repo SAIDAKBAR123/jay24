@@ -9,14 +9,14 @@
       :src="product.image"
     ></v-img>
 
-    <v-card-title class="font-weight-bold text-h4">{{ product.name }}</v-card-title>
+    <v-card-title class="font-weight-bold text-h4">{{ option.name }}</v-card-title>
 
     <v-card-text>
       <v-row
         align="center"
         class="mx-0"
       >
-        <p class="blue--text font-weight-bold mr-4">{{ product.price }} сум</p>
+        <p class="blue--text font-weight-bold mr-4">{{ option.price }} сум</p>
         <div class="primary py-1 px-4 rounded-lg white--text">
           Popular
         </div>
@@ -25,8 +25,8 @@
       <div class="mt-8">Jackburger, graffifries og valgfri box 0,33 Cola eller Cola uten sukker.</div>
     </v-card-text>
 
-    <v-card-actions>
-      <v-btn text color="white" class="primary py-6 px-12 rounded-lg" style="text-transform: unset; letter-spacing: 1px;">
+    <v-card-actions class="d-flex justify-end">
+      <v-btn @click="addToCart" text color="white" class="primary py-6 px-12 rounded-lg" style="text-transform: unset; letter-spacing: 1px;">
          Добавить в корзину
       </v-btn>
     </v-card-actions>
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  props: ['product'],
+  props: ['option', 'product'],
   data () {
     return {
       loading: false
@@ -46,8 +46,13 @@ export default {
     toggleDialog (e) {
       if (e.target === this.$refs.wrapper) {
         this.$emit('toggle-dialog')
-        console.log(this.product)
+        console.log(this.option)
       }
+    },
+    addToCart () {
+      console.log('eee', this.option)
+      this.$store.dispatch('saveProduct', { ...this.option })
+      this.$emit('toggle-dialog')
     }
   }
 }

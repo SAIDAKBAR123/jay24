@@ -33,7 +33,7 @@
                 </v-btn>
             </v-col>
             <v-col v-if="userExist" cols="auto">
-              <v-btn @click="$router.push('/order')" text class="textFormat" outlined color="grey darken-2">My order</v-btn>
+              <v-btn @click="$router.push('/my-orders')" text class="textFormat" outlined color="grey darken-2">My order</v-btn>
             </v-col>
             <v-col v-if="!userExist" cols="auto">
               <v-btn @click="$emit('toggle-modal-login')" text class="textFormat" color="grey darken-2" style="">Log in</v-btn>
