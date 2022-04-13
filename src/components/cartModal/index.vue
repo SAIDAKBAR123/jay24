@@ -6,9 +6,9 @@
       </v-icon>
       <div class="text-h5">
         <div class="d-flex justify-space-between align-center">
-          <p class="font-weight-bold">Ваш заказ</p>
+          <p class="font-weight-bold">Your orders</p>
           <p class="red--text text-h6">
-            Очистить корзину
+            Clear cart
           </p>
         </div>
       </div>
@@ -21,8 +21,7 @@
                 <v-img class="rounded-lg mr-4 ml-6" width="80"
                   src="https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg"></v-img>
                 <div style="width: 160px;">
-                  <h4>{{ item.name }}</h4>
-                  <p class="grayLight--text mt-1">Булочка гамбургер, соленые огурцы</p>
+                  <h4 class="font-weight-bold text-h5">{{ item.name }}</h4>
                 </div>
               </div>
               <div>
@@ -42,16 +41,17 @@
       <div class="infomation pa-8">
         <v-row>
           <v-col>
-            <p class="main--text font-weight-bold text-h5">Итого</p>
+            <p class="main--text font-weight-bold text-h5">Total price</p>
           </v-col>
           <v-col>
-            <p class="primary--text font-weight-bold text-h5 d-flex justify-end">{{ totalPrice ? totalPrice : '' }} sum</p>
+            <p class="primary--text font-weight-bold text-h5 d-flex justify-end">{{ totalPrice ? totalPrice : '' }} sum
+            </p>
           </v-col>
         </v-row>
         <div class="mt-4">
-          <v-btn @click="addToOrder" text color="white" class="primary py-6 px-12 rounded-lg"
+          <v-btn @click="addToOrder" text color="white" class="primary py-6 px-12 text-h6 font-weight-bold rounded-lg"
             style="text-transform: unset; letter-spacing: 1px; width: 100%">
-            Оформить заказ
+            Order
           </v-btn>
         </div>
       </div>
@@ -141,6 +141,29 @@ export default {
     max-height: 480px;
     overflow-y: scroll;
   }
+
+  .list::-webkit-scrollbar {
+    width: 12px;
+    height: 10px !important;
+    margin-right: 2px;
+  }
+
+  .list::-webkit-scrollbar-thumb {
+    background: linear-gradient(60deg, #4285F4 43%, #4285F4 49%);
+    border-radius: 12px;
+  }
+
+  .list::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(13deg, #4285F4 14%, #4285F4 64%);
+  }
+
+  .list::-webit-scrollbar-track {
+    background: rgba(245, 245, 245, 0.88);
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0px 0px 0px rgba(245, 245, 245, 0.88);
+    box-shadow: inset 0px 0px 0px rgba(245, 245, 245, 0.88);
+  }
+
   .infomation {
     margin-top: auto;
     position: absolute;

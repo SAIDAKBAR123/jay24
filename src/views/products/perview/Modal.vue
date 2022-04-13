@@ -2,7 +2,7 @@
    <div class="dialog" @click="toggleDialog" ref="wrapper">
      <v-card
     class="mx-auto my-12 rounded-lg"
-    max-width="550"
+    max-width="500"
   >
     <v-img
       height="300"
@@ -13,21 +13,20 @@
 
     <v-card-text>
       <v-row
-        align="center"
-        class="mx-0"
+        class="mx-0 mt-2 align-center"
       >
-        <p class="blue--text font-weight-bold mr-4">{{ option.price }} сум</p>
+        <p class="blue--text font-weight-bold mr-4 text-h6">{{ option.price }} сум</p>
         <div class="primary py-1 px-4 rounded-lg white--text">
           Popular
         </div>
       </v-row>
 
-      <div class="mt-8">Jackburger, graffifries og valgfri box 0,33 Cola eller Cola uten sukker.</div>
+      <!-- <div class="mt-8">Jackburger, graffifries og valgfri box 0,33 Cola eller Cola uten sukker.</div> -->
     </v-card-text>
 
     <v-card-actions class="d-flex justify-end">
       <v-btn @click="addToCart" text color="white" class="primary py-6 px-12 rounded-lg" style="text-transform: unset; letter-spacing: 1px;">
-         Добавить в корзину
+         Add to Cart
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -50,7 +49,6 @@ export default {
       }
     },
     addToCart () {
-      console.log('eee', this.option)
       this.$store.dispatch('saveProduct', { ...this.option })
       this.$emit('toggle-dialog')
     }

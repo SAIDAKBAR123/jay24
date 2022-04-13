@@ -1,11 +1,18 @@
 <template>
   <div class="single-product">
-      <main-section :main="merchant"/>
+    <main-section :main="merchant" />
+    <v-row class="mt-16">
+      <v-col cols="2">
+        <productHeader :products="products" />
+      </v-col>
       <!-- <product-list :items="items" :products="products" /> -->
-      <product-item v-for="product in products" :product="product" :key="product" />
-      <Footer />
+      <v-col cols="10">
+        <product-item v-for="(product, index) in products" :product="product" :key="index" />
+      </v-col>
+    </v-row>
+    <Footer />
     <button v-show="scY > 750" class="toTopBtn" @click="scrollToTop">
-       <v-icon>mdi-chevron-up</v-icon>
+      <v-icon>mdi-chevron-up</v-icon>
     </button>
   </div>
 </template>
@@ -15,11 +22,13 @@ import ProductItem from './perview/product.vue'
 import Footer from '../../components/footer/index.vue'
 import Product from '../../services/products'
 import './product.scss'
+import productHeader from './perview/productHeader.vue'
 export default {
   components: {
     MainSection,
     Footer,
-    ProductItem
+    ProductItem,
+    productHeader
   },
   data () {
     return {
@@ -53,9 +62,9 @@ export default {
       Product.getProducts(this.$route.params.id).then((res) => {
         console.log(res)
         this.products = res.products
-        this.productsCategoryID = res.products.forEach(el => {
-          return el.id
-        })
+        // this.productsCategoryID = res.products.forEach(el => {
+        //   return el.id
+        // })
       })
     },
     getRestaurantById () {
@@ -88,6 +97,7 @@ export default {
     padding: 0 !important;
     cursor: pointer;
   }
+
   .toTopBtn {
     position: fixed;
     bottom: 40px;
@@ -100,6 +110,7 @@ export default {
     align-items: center;
     justify-content: center;
   }
+
   .toTopBtn:hover {
     border: 1px solid #111;
     transition: 0.5s;

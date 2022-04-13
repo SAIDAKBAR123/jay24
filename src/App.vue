@@ -9,6 +9,7 @@
     <Login v-if="loginModal" @toggle-login-modal="toggleLogin" />
     <Register v-if="registerModal" @toggle-register-modal="toggleRegister" />
     <CartModal v-if="isCartActive" @toggle-cart-modal="toggleCartModal" @close-modal="closeCart" />
+    <Footer />
   </v-app>
 </template>
 
@@ -18,12 +19,14 @@ import Headers from './components/header/index.vue'
 import Login from './components/loginModal/Login.vue'
 import Register from './components/registerModal/index.vue'
 import CartModal from './components/cartModal/index.vue'
+import Footer from './components/footer/index.vue'
 export default {
   components: {
     Headers,
     Login,
     Register,
-    CartModal
+    CartModal,
+    Footer
   },
   data: () => ({
     links: [{

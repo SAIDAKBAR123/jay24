@@ -14,15 +14,15 @@
           <v-img class="rounded-lg" :lazy-src="require('../../assets/loader.jpg')" max-height="160" max-width="260"
             :src="order.image" alt="" />
             <v-card-text class="text-center">
-              <p class="text-h6 main--text">Номер заказа: 3234</p>
-              <p class="font-weight-medium main--text mt-1" style="opacity: 0.7;">
-                Ваш заказ успешно был создан.
-                Спасибо за выбор
+              <p class="text-h6 main--text">Order number: {{ order.guid.substring(0,6) }} </p>
+              <p class="font-weight-medium main--text mt-1 mx-auto" style="opacity: 0.7; width: 70%">
+                Your order has been successfully created.
+                Thanks for choosing
               </p>
             </v-card-text>
           <v-card-actions style="width: 100%" class="pa-4">
-            <v-btn text color="white" class="primary py-6 rounded-lg" style="width: 100% !important; text-transform: unset; letter-spacing: 1px;">
-              Перейти к главному
+            <v-btn @click="back" text color="white" class="primary py-6 rounded-lg" style="width: 100% !important; text-transform: unset; letter-spacing: 1px;">
+              Go to main
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -49,6 +49,9 @@ export default {
         default:
           return 'New'
       }
+    },
+    back () {
+      this.$router.push('/')
     }
   }
 }

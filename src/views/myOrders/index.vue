@@ -19,7 +19,7 @@ export default {
   methods: {
     getOrderList () {
       ProductService.getOrderList().then((res) => {
-        this.orderList = res.orders
+        this.orderList = res.orders.filter(el => el.user_id === this.$store.state.user.guid)
       })
     }
   },

@@ -1,19 +1,6 @@
 <template>
-  <v-row class="products pt-10">
-    <v-col cols="6" md="2" class="menu-fixed">
-      <v-card class="pa-2" style="background: transparent;">
-        <div class="aside-left">
-          <ul class="d-flex flex-column">
-            <li @click="$vuetify.goTo(`#${categories.name}`, options)">
-              {{ categories.name }}
-            </li>
-          </ul>
-        </div>
-      </v-card>
-    </v-col>
-    <v-col cols="8" md="10">
-      <div class="pa-2">
-        <div class="aside-center">
+  <v-container class="products">
+     <div class="aside-center main--text">
           <div class="mb-16" :id="categories.name">
             <div>
               <h2 class="font-weight-bold text-h4">{{ categories.name }}</h2>
@@ -28,15 +15,15 @@
                     <p class="main--text text-h6 font-weight-medium">
                       {{ item.name }}
                     </p>
-                    <p class="font-weight-medium main--text" style="opacity: 0.7;">
+                    <!-- <p class="font-weight-medium main--text" style="opacity: 0.7;">
                       Булочка гамбургер, соленые огурцы
-                    </p>
+                    </p> -->
                   </v-card-text>
                   <v-card-actions class="pa-4">
                     <v-btn @click="toggleDialog(item.name)" text
-                      class="gray py-6 rounded-lg main--text font-weight-medium"
+                      class="gray py-6 rounded-lg main--text font-weight-medium text-h6"
                       style="width: 100% !important; text-transform: unset; letter-spacing: 1px;">
-                      В корзину
+                      In cart
                     </v-btn>
                   </v-card-actions>
                 </v-card>
@@ -44,10 +31,8 @@
             </v-row>
           </div>
         </div>
-      </div>
-    </v-col>
     <Modal v-if="dialog" @toggle-dialog="toggleDialog" :product="product" :option="option" />
-  </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -93,6 +78,7 @@ export default {
       this.dialog = !this.dialog
       console.log(e)
       console.log(this.product.options)
+      console.log('thiss', this.product)
       this.option = this.product.options.find(product => product.name === e)
       console.log('product', this.option)
     },

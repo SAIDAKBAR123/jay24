@@ -1,7 +1,7 @@
 <template>
   <section class="wrapper">
-    <v-parallax dark :src="main.background_image">
-      <v-row>
+    <v-parallax dark :src="main.background_image" height="100" style="object-fit: cover">
+      <v-row style="background: #00000073; background-blend-mode: lighten;">
         <v-col cols="12">
           <v-container>
             <div class="content">
@@ -64,12 +64,12 @@ export default {
 </script>
 
 <style scoped>
-  /* .wrapper {
+  .wrapper {
     position: relative;
-    height: 70vh;
+    height: 80vh !important;
   }
 
-  .wrapper::after {
+  /* .wrapper::after {
     content: '';
     position: absolute;
     right: 0;
