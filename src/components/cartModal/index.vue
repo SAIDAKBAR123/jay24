@@ -7,9 +7,7 @@
       <div class="text-h5">
         <div class="d-flex justify-space-between align-center">
           <p class="font-weight-bold">Your orders</p>
-          <p class="red--text text-h6">
-            Clear cart
-          </p>
+          <v-btn text :ripple="false">Clear cart</v-btn>
         </div>
       </div>
       <div class="list">
@@ -17,21 +15,23 @@
           <v-list-item-content>
             <div class="d-flex justify-space-between align-center">
               <div class="d-flex align-center">
-                <v-icon>mdi-trash-can-outline</v-icon>
+                <v-btn text small color="red" fab @click="removeProduct(item)"><v-icon>mdi-trash-can-outline</v-icon></v-btn>
                 <v-img class="rounded-lg mr-4 ml-6" width="80"
-                  src="https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg"></v-img>
+                  :src="item.image"></v-img>
                 <div style="width: 160px;">
-                  <h4 class="font-weight-bold text-h5">{{ item.name }}</h4>
+                  <h4 class="font-weight-bold title">{{ item.name }}</h4>
                 </div>
               </div>
               <div>
-                <p class="primary--text font-weight-bold">{{ item.price ? item.price : 0 }} sum</p>
+                <p class="primary--text font-weight-bold">{{ item.price ? item.price : 0 }} uzs</p>
                 <div class="grayBack rounded-lg pa-2 mt-2">
-                  <v-icon>mdi-minus</v-icon>
+                  <v-btn small text>
+                    <v-icon>mdi-minus</v-icon>
+                  </v-btn>
                   <span class="mx-3">1</span>
-                  <v-button>
+                  <v-btn small text>
                     <v-icon>mdi-plus</v-icon>
-                  </v-button>
+                  </v-btn>
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
             <p class="main--text font-weight-bold text-h5">Total price</p>
           </v-col>
           <v-col>
-            <p class="primary--text font-weight-bold text-h5 d-flex justify-end">{{ totalPrice ? totalPrice : '' }} sum
+            <p class="primary--text font-weight-bold text-h5 d-flex justify-end">{{ totalPrice ? totalPrice : '' }} uzs
             </p>
           </v-col>
         </v-row>
@@ -63,7 +63,7 @@
 import {
   mapGetters
 } from 'vuex'
-import ProductServese from '../../services/products'
+// import ProductServese from '../../services/products'
 export default {
   data () {
     return {
@@ -73,8 +73,18 @@ export default {
   },
   methods: {
     addToOrder () {
-      this.$router.push('/order')
+      console.log(this.$route)
       this.$emit('toggle-cart-modal')
+      this.$router.push({
+        path: this.$route.path + '/orders'
+      })
+    },
+    removeProduct (item) {
+      this.$store.commit('SAVE_STATE_PRODUCT', this.products.filter(el => el.guid !== item.guid))
+      this.getTotalPrice()
+      if (!this.products.length) {
+        this.$emit('toggle-cart-modal')
+      }
     },
     toggleModal (e) {
       if (this.$refs.wrapper === e.target) {
@@ -86,13 +96,14 @@ export default {
       this.$emit('close-modal')
     },
     getUserOrders () {
+      console.log(this.$store.state)
       // const userData = localStorage.getItem('user')
       // const user = JSON.parse(userData)
       // console.log('user guid', user.guid || user)
-      ProductServese.getUserOrderList('ba8cd451-e95c-466a-bf71-c28d3d4b73f3').then((res) => {
-        // console.log('order user', res.orders)
-        this.orderList = res.orders
-      })
+      // ProductServese.getUserOrderList().then((res) => {
+      //   // console.log('order user', res.orders)
+      //   this.orderList = res.orders
+      // })
     },
     getTotalPrice () {
       this.totalPrice = this.products.reduce(function (sum, current) {

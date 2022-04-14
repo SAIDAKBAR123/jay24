@@ -41,9 +41,9 @@
     </v-row>
     <v-row class="mx-1">
       <v-col cols="12">
-        <h1 class="">€0 Delivery Fee up to 2Km 💰🤑</h1>
+        <h1 class="">Merchant life 💰🤑</h1>
       </v-col>
-      <v-col v-for="(item,i) in restaurants" :key="i" cols="4">
+      <v-col v-for="(item,i) in restaurants" :key="i" cols="12" sm="6" md="4" xl="3">
         <Card :element="item">hello</Card>
       </v-col>
     </v-row>
@@ -156,6 +156,9 @@ export default {
   },
   mounted () {
     this.getRestaurants()
+  },
+  created () {
+    this.$store.commit('CLEAR_PRODUCT')
   }
 }
 </script>

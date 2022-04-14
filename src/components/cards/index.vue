@@ -10,15 +10,16 @@
         </div>
         <v-row align="center" :gutters="[10, 10]" justify="space-between">
           <v-col cols="auto">
-            <v-card-title class="overflow-hidden font-weight-bold text-h5"> {{ element.name }}</v-card-title>
-            <!-- <v-card-subtitle
-              ><span> {{ element.delivery_time }} </span>
-            </v-card-subtitle> -->
-          </v-col>
-          <v-col cols="auto">
+            <v-card-title class="overflow-hidden font-weight-bold text-h5"> {{ element.name }}
+                        <v-col cols="auto">
             <v-sheet color="blue lighten-4" class="px-2 py-2 rounded-lg text-body-2 mx-2 blue--text">
               {{ element.delivery_time }} - {{ element.delivery_time + 10 }} min
             </v-sheet>
+          </v-col>
+            </v-card-title>
+            <v-card-subtitle
+              ><span class=""> {{ `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuri`.substring(0, 100) }} </span>
+            </v-card-subtitle>
           </v-col>
         </v-row>
         <v-card-actions>
@@ -28,7 +29,7 @@
             </v-col>
             <v-col class="text--primary">
               <div class="d-flex flex-column">
-                <v-rating :value="element.rating" disabled background-color="orange lighten-3" color="orange" dense>
+                <v-rating :value="3" disabled background-color="orange lighten-3" color="orange" dense>
                 </v-rating>
                 <div class="mt-4">
                   <p class="main--text gray px-2 py-2 rounded-lg text-body-2 mx-2 blue--text" style="display: inline-block">
@@ -52,6 +53,9 @@ export default {
     return {
       show: false
     }
+  },
+  created () {
+    console.log(this.element)
   }
 }
 </script>

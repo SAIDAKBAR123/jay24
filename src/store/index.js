@@ -27,7 +27,12 @@ export default new Vuex.Store({
     },
     SAVE_PRODUCT (state, payload) {
       state.products = [...state.products, payload]
-      console.log('pushed product', state.products)
+    },
+    SAVE_STATE_PRODUCT (state, payload) {
+      state.products = payload
+    },
+    CLEAR_PRODUCT (state) {
+      state.products = []
     }
   },
   actions: {
@@ -38,9 +43,13 @@ export default new Vuex.Store({
           url: '/user/login',
           data: data
         }).then((res) => {
-          commit('SET_LOGIN', res)
-          console.log('login', res)
-          resolve(res)
+          if (res.exist) {
+            commit('SET_LOGIN', res)
+            console.log('login', res)
+            resolve(res)
+          } else {
+            reject(new Error('There is no user'))
+          }
         })
       })
     },

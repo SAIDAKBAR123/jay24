@@ -1,10 +1,10 @@
 <template>
   <section class="wrapper">
-    <v-parallax dark :src="main.background_image" height="100" style="object-fit: cover">
+    <v-parallax :src="main.background_image">
       <v-row style="background: #00000073; background-blend-mode: lighten;">
         <v-col cols="12">
-          <v-container>
-            <div class="content">
+          <v-container >
+            <div class="content mx-0 px-0">
               <div class="top d-flex">
                 <p class="mr-md-16">The average delivery time is 20–40 min</p>
                 <p>Open today: 11.00–23.00</p>
@@ -13,7 +13,7 @@
                 <h1 class="text-h4 font-weight-thin mb-4 title">
                   {{ main.name }}
                 </h1>
-                <p class="subtitle">Utforsk det italienske kjøkkenet.</p>
+                <p class="subtitle">Description here</p>
                 <div class="order">
                   <p>MIN. ORDER: 150.00</p>
                 </div>
@@ -53,7 +53,7 @@ export default {
   methods: {
     getRestaurantById () {
       Service.getRestaurantById(this.$route.params.id).then(res => {
-        console.log(res)
+        // console.log(res)
       })
     }
   },
@@ -68,15 +68,4 @@ export default {
     position: relative;
     height: 80vh !important;
   }
-
-  /* .wrapper::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 1;
-  } */
 </style>

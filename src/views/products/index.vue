@@ -2,12 +2,16 @@
   <div class="single-product">
     <main-section :main="merchant" />
     <v-row class="mt-16">
-      <v-col cols="2">
+      <v-col cols="12" md="3" xl="3">
         <productHeader :products="products" />
       </v-col>
       <!-- <product-list :items="items" :products="products" /> -->
-      <v-col cols="10">
-        <product-item v-for="(product, index) in products" :product="product" :key="index" />
+      <v-col cols="12" md="9" xl="9" sm="12">
+        <v-row>
+          <v-col  v-for="(product, index) in products" :key="index + 3" cols="12" sm="12" xl="12" md="12">
+              <product-item :product="product"/>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
     <Footer />
@@ -42,15 +46,29 @@ export default {
       activeBlock: null
     }
   },
+  beforeRouteLeave (to, from, next) {
+    console.log(to, from)
+    if (to.name === 'order-product-id' && this.$store.state.products.length) {
+      next()
+      return true
+    }
+    if (this.$store.state.products.length) {
+      const answer = window.confirm('Do you really want to leave? you will lose selected products!')
+      if (!answer) return false
+      next()
+    } else {
+      next()
+    }
+  },
   methods: {
-    handleScroll: function () {
-      if (this.scTimer) return
-      this.scTimer = setTimeout(() => {
-        this.scY = window.scrollY
-        clearTimeout(this.scTimer)
-        this.scTimer = 0
-      }, 100)
-    },
+    // handleScroll: function () {
+    //   if (this.scTimer) return
+    //   this.scTimer = setTimeout(() => {
+    //     this.scY = window.scrollY
+    //     clearTimeout(this.scTimer)
+    //     this.scTimer = 0
+    //   }, 100)
+    // },
     openModal () {
       this.dialog3 = !this.dialog3
     },
@@ -58,9 +76,9 @@ export default {
       window.scrollTo(0, 0)
     },
     getProducts () {
-      console.log(this.$route.params.id)
+      // console.log(this.$route.params.id)
       Product.getProducts(this.$route.params.id).then((res) => {
-        console.log(res)
+        // console.log(res)
         this.products = res.products
         // this.productsCategoryID = res.products.forEach(el => {
         //   return el.id
@@ -69,7 +87,7 @@ export default {
     },
     getRestaurantById () {
       Product.getRestaurantById(this.$route.params.id).then(res => {
-        console.log(res)
+        // console.log(res)
         this.merchant = res
       })
     }
@@ -79,7 +97,7 @@ export default {
     this.getRestaurantById()
   },
   mounted () {
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>

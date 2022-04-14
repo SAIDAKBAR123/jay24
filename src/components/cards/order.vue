@@ -8,11 +8,10 @@
       >
         <v-card class="rounded-lg d-flex align-center flex-column ma-2">
           <v-card-text>
-            <div class="text-center text-h4 text-[#119C2B] success--text mb-2">{{ order.address }}</div>
             <div class="text-center text-[#119C2B] title success--text mb-2">{{ getStatus(order.status) }}</div>
           </v-card-text>
           <v-img class="rounded-lg" :lazy-src="require('../../assets/loader.jpg')" max-height="160" max-width="260"
-            :src="order.image" alt="" />
+            :src="order.products ? order.products[0].image : ''" alt="sds" />
             <v-card-text class="text-center">
               <p class="text-h6 main--text">Order number: {{ order.guid.substring(0,6) }} </p>
               <p class="font-weight-medium main--text mt-1 mx-auto" style="opacity: 0.7; width: 70%">
@@ -33,6 +32,7 @@
 <script>
 export default {
   props: ['orderList'],
+
   methods: {
     getStatus (status) {
       switch (status) {
@@ -53,6 +53,11 @@ export default {
     back () {
       this.$router.push('/')
     }
+  },
+  created () {
+    setTimeout(() => {
+      console.log(this.orderList)
+    }, 2000)
   }
 }
 </script>

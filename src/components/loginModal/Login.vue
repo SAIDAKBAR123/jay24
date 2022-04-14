@@ -54,10 +54,11 @@ export default {
           if (res.exist) {
             window.location.href = '/'
           }
+        }).catch(() => {
+          this.$emit('toggle-login-modal')
         })
         .finally((res) => {
           console.log(res)
-          this.$emit('toggle-login-modal')
         })
     },
     toggleLogin (e) {

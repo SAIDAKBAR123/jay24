@@ -4,7 +4,7 @@
       <div>
         <img class="logo" @click="$router.push('/')" height="auto" width="130" :src="logo" alt="asd" srcset="" />
       </div>
-      <p class="main--text">© Beeyor 2005 - 2022 All rights reserved</p>
+      <p class="main--text">© Deliveryegy 2022 All rights reserved</p>
     </v-container>
   </footer>
 </template>
