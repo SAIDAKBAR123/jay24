@@ -124,6 +124,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      loading: false,
       form: {
         address: '',
         branch_id: '',
@@ -139,7 +140,6 @@ export default {
   },
   methods: {
     createOrder () {
-      console.log(this.form, this.$store.state.user.guid)
       this.loading = true
       Services.orderCreate({
         ...this.form,
