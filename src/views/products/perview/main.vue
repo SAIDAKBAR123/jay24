@@ -1,7 +1,10 @@
 <template>
-  <section class="wrapper">
-    <v-parallax :src="main.background_image">
-      <v-row style="background: #00000073; background-blend-mode: lighten;">
+    <section>
+      <div class="back__container" :style="`
+      background: url(${main.background_image});
+      `">
+      <div class="back_img">
+      <v-row >
         <v-col cols="12">
           <v-container >
             <div class="content mx-0 px-0">
@@ -42,14 +45,20 @@
           </v-container>
         </v-col>
       </v-row>
-    </v-parallax>
-  </section>
+      </div>
+      </div>
+    </section>
 </template>
 
 <script>
 import Service from '../../../services/products'
 export default {
   props: ['main'],
+  data () {
+    return {
+      overlay: true
+    }
+  },
   methods: {
     getRestaurantById () {
       Service.getRestaurantById(this.$route.params.id).then(res => {
@@ -67,5 +76,16 @@ export default {
   .wrapper {
     position: relative;
     height: 80vh !important;
+  }
+  .back_img {
+    background: rgba(0, 0, 0, 0.653);
+  }
+  .back__container {
+      background-size: cover !important;
+      object-fit: cover;
+      width: 100vw;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
   }
 </style>

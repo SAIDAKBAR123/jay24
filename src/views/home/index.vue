@@ -1,31 +1,6 @@
 <template>
   <div>
-    <v-row no-gutters class="my-4">
-      <v-col cols="4">
-        <v-btn text>Malta <v-icon right>mdi-chevron-down</v-icon></v-btn>
-      </v-col>
-      <v-col cols="auto">
-        <v-row no-gutters justify="center">
-          <v-col
-            v-for="item in btnLink"
-            :key="item.link"
-            cols="auto"
-            class="mx-1"
-          >
-            <v-btn
-              text
-              class="rounded-xl text-capitalize"
-              :to="item.link"
-              active-class="background blue darken-1 white--text"
-            >
-              <v-icon left> {{ item.icon }}</v-icon
-              >{{ item.title }}</v-btn
-            >
-          </v-col>
-        </v-row>
-      </v-col>
-      <v-spacer></v-spacer>
-      <v-col cols="auto"> </v-col>
+    <v-row no-gutters class="my-2">
     </v-row>
     <v-row class="mx-1">
       <v-col>
@@ -34,7 +9,7 @@
             class="rounded-lg"
             v-for="(item,i) in banners"
             :key="i"
-            :src="item.src"
+            :src="require('../../assets/' + item.src)"
           ></v-carousel-item>
         </v-carousel>
       </v-col>
@@ -134,13 +109,13 @@ export default {
       ],
       banners: [
         {
-          src: 'https://discovery-cdn.wolt.com/cities/malta/sections/48cf8754-566d-11ec-844d-9e36fa60c423_12f3f254_f10b_11eb_a680_82f2988b9701_1_darylcauchi_convenience_4271.jpg'
+          src: 'banner1.jpg'
         },
         {
-          src: 'https://discovery-cdn.wolt.com/cities/malta/sections/e991e678-16cb-11ec-ae14-0ebfd5c4794a_discovery6666.jpg'
+          src: 'banner2.jpg'
         },
         {
-          src: 'https://imageproxy.wolt.com/venue/60ee9b02c5a9794eb92c086e/52830008-057a-11ec-a63b-b6ea38b4b54b_tuk_tuk_10.jpg'
+          src: 'banner4.jpg'
         }
       ]
     }

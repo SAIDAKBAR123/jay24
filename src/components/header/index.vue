@@ -13,7 +13,7 @@
             srcset=""
           />
         </v-col>
-        <v-col cols="4" class="ml-16">
+        <v-col v-if="false" cols="4" class="ml-16">
           <v-text-field
             dense
             full-width

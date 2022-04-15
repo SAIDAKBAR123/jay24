@@ -82,11 +82,11 @@
           <div class="mt-8">
             <v-textarea v-model="form.address" solo name="input-7-4" label="Enter your address"></v-textarea>
           </div>
-          <div class="mt-8">
+          <div>
             <v-textarea v-model="form.comment" solo name="input-7-4" label="Enter your comment"></v-textarea>
           </div>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="6" style="position: fixed !important; right: 0">
         <v-card class="pa-4">
           <h3 class="text-h5 font-weight-bold main--text mb-4">Total</h3>
           <v-row class="pa-3" v-for="(product, index) in products" :key="index">
@@ -177,6 +177,9 @@ export default {
   },
   created () {
     this.getMerchantBranches()
+    this.$vuetify.goTo(0, {
+      duration: 0
+    })
   }
 }
 </script>
