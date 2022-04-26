@@ -28,6 +28,12 @@
             label="Password"
             prepend-inner-icon="mdi-shield-lock-outline"
           ></v-text-field>
+          <v-text-field
+            v-model="form.phone_number"
+            type="text"
+            outlined
+            label="Phone number"
+          ></v-text-field>
             <v-btn class="primary pa-4" large style="width: 100%" @click="submit">
             submit
           </v-btn>
@@ -48,7 +54,8 @@ export default {
       form: {
         login: '',
         name: '',
-        password: ''
+        password: '',
+        phone_number: ''
       }
     }
   },

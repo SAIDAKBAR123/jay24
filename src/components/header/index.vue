@@ -27,8 +27,11 @@
           ></v-text-field>
         </v-col>
         <v-col cols="auto">
-          <v-row no-gutters>
-            <v-col v-if="userExist" cols="auto mr-4">
+          <v-row no-gutters align="center">
+            <v-col v-if="userExist" cols="auto">
+              <v-btn small text color="red" @click="logout">Logout</v-btn>
+            </v-col>
+            <v-col v-if="userExist" cols="auto" class="mr-2">
               <v-badge
                 :content="productQuantity"
                 color="red"
@@ -143,6 +146,9 @@ export default {
     }
   },
   methods: {
+    logout () {
+      this.$store.commit('LOGOUT')
+    },
     checkUser () {
       // console.log(this.$store.state.user)
       if (this.$store.state.user) {

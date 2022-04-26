@@ -16,7 +16,7 @@
                 <h1 class="text-h4 font-weight-thin mb-4 title">
                   {{ main.name }}
                 </h1>
-                <p class="subtitle">Description here</p>
+                <p class="subtitle">{{ main.description }}</p>
                 <div class="order">
                   <p>MIN. ORDER: 150.00</p>
                 </div>

@@ -33,6 +33,13 @@ export default new Vuex.Store({
     },
     CLEAR_PRODUCT (state) {
       state.products = []
+    },
+    LOGOUT (state) {
+      localStorage.removeItem('user')
+      localStorage.removeItem('image')
+      state.products = []
+      state.user = null
+      window.location.reload()
     }
   },
   actions: {
