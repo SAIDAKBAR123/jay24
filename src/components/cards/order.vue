@@ -10,8 +10,14 @@
           <v-card-text>
             <div class="text-center text-[#119C2B] title success--text mb-2">{{ getStatus(order.status) }}</div>
           </v-card-text>
-          <v-img class="rounded-lg" :lazy-src="require('../../assets/loader.jpg')" max-height="160" max-width="260"
-            :src="order.products ? order.products[0].image : ''" alt="sds" />
+          <!-- <v-img class="rounded-lg" :lazy-src="require('../../assets/loader.jpg')" max-height="160" max-width="260"
+            :src="order.products ? order.products[0].image : ''" alt="sds" /> -->
+          <v-row justify="center" class="mx-1">
+            <v-col cols="auto" v-for="pr in order.products" :key="pr.id">
+              <v-img height="100" width="140" contain class="rounded-lg style_img" :lazy-src="require('../../assets/loader.jpg')" max-height="160" max-width="260"
+            :src="pr.image ? pr.image : ''" :alt="pr.image" />
+            </v-col>
+          </v-row>
             <v-card-text class="text-center">
               <p class="text-h6 main--text">Order number: {{ order.guid.substring(0,6) }} </p>
               <p class="font-weight-medium main--text mt-1 mx-auto" style="opacity: 0.7; width: 70%">
@@ -61,3 +67,17 @@ export default {
   }
 }
 </script>
+<style scoped>
+.style_img {
+  /* border: 1px solid #9d9d9d5f; */
+  transition: transform .2s;
+}
+.style_img:hover {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+   -ms-transform: scale(1.4); /* IE 9 */
+  -webkit-transform: scale(1.4); /* Safari 3-8 */
+  transform: scale(1.4);
+  /* When the animation is finished, start again */
+}
+
+</style>

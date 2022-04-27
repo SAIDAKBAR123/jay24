@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="list">
-        <v-list-item class="mt-6 " v-for="item in products" :key="item.guid">
+        <v-list-item class="mt-6 " v-for="item in productList" :key="item.guid">
           <v-list-item-content>
             <div class="d-flex justify-space-between align-center">
               <div class="d-flex align-center">
@@ -23,13 +23,13 @@
                 </div>
               </div>
               <div>
-                <p class="primary--text font-weight-bold">{{ item.price ? item.price : 0 }} uzs</p>
+                <p class="primary--text font-weight-bold">{{ item.price ? item.price * item.count : 0 }} uzs</p>
                 <div class="grayBack rounded-lg pa-2 mt-2">
-                  <v-btn small text>
+                  <v-btn small text @click="countProduct(item, 'minus')">
                     <v-icon>mdi-minus</v-icon>
                   </v-btn>
-                  <span class="mx-3">1</span>
-                  <v-btn small text>
+                  <span class="mx-3">{{ item.count }}</span>
+                  <v-btn small text @click="countProduct(item, 'plus')">
                     <v-icon>mdi-plus</v-icon>
                   </v-btn>
                 </div>
@@ -68,33 +68,51 @@ export default {
   data () {
     return {
       orderList: [],
-      totalPrice: null
+      totalPrice: null,
+      productList: []
     }
   },
   methods: {
+
     addToOrder () {
       console.log(this.$route)
       this.$emit('toggle-cart-modal')
-      this.$router.push({
-        path: this.$route.path + '/orders'
-      })
+      this.$router.push({ path: this.$route.path + '/orders' })
     },
+
     removeProduct (item) {
-      this.$store.commit('SAVE_STATE_PRODUCT', this.products.filter(el => el.guid !== item.guid))
+      console.log(item)
+      this.productList = this.productList.filter(el => el.guid !== item.guid)
+      this.$store.commit('SAVE_STATE_PRODUCT', this.productList)
       this.getTotalPrice()
-      if (!this.products.length) {
+      if (!this.productList.length) {
         this.$emit('toggle-cart-modal')
       }
     },
+
     toggleModal (e) {
       if (this.$refs.wrapper === e.target) {
         this.$emit('toggle-cart-modal')
         console.log('getter', this.products)
       }
     },
+
+    countProduct (element, type) {
+      if (type === 'plus') {
+        element.count = element.count + 1
+      } else if (type === 'minus') {
+        if (element.count) {
+          element.count = element.count - 1
+        } else alert('no item to decrement')
+      }
+      this.getTotalPrice()
+      this.$store.commit('SAVE_STATE_PRODUCT', this.productList)
+    },
+
     closeModal () {
       this.$emit('close-modal')
     },
+
     getUserOrders () {
       console.log(this.$store.state)
       // const userData = localStorage.getItem('user')
@@ -105,15 +123,22 @@ export default {
       //   this.orderList = res.orders
       // })
     },
+
     getTotalPrice () {
       this.totalPrice = this.products.reduce(function (sum, current) {
-        return sum + parseInt(current.price)
+        return sum + parseInt(current.price) * parseInt(current.count)
       }, 0)
     }
   },
+
   computed: {
     ...mapGetters(['products'])
   },
+
+  created () {
+    this.productList = this.products
+  },
+
   mounted () {
     this.getUserOrders()
     this.getTotalPrice()

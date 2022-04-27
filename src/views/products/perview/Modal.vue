@@ -15,7 +15,7 @@
       <v-row
         class="mx-0 mt-2 align-center"
       >
-        <p class="blue--text font-weight-bold mr-4 text-h6">{{ option.price }} сум</p>
+        <p class="blue--text font-weight-bold mr-4 text-h6">{{ option.price }} uzs</p>
         <div class="primary py-1 px-4 rounded-lg white--text">
           Popular
         </div>
@@ -49,7 +49,7 @@ export default {
       }
     },
     addToCart () {
-      this.$store.dispatch('saveProduct', { ...this.option })
+      this.$store.dispatch('saveProduct', { ...this.option, count: 1 })
       this.$emit('toggle-dialog')
     }
   }

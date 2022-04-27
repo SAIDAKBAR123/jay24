@@ -13,7 +13,7 @@
                 <input type="text" :value="$store.state.user.name" placeholder="John" required />
               </v-col>
               <v-col cols="5" class="grayBack rounded-lg main--text">
-                <input type="text" placeholder="+998 90 123 45 67" required />
+                <input type="text" :value="$store.state.user.phone_number" placeholder="+998 90 123 45 67" required />
               </v-col>
             </v-row>
           </div>
@@ -21,7 +21,7 @@
         <v-card class="mt-4">
           <div class="pa-4">
             <h3 class="text-h5 font-weight-bold title">Your order</h3>
-            <v-list-item class="mt-5 pa-0" v-for="(product, index) in products" :key="index">
+            <v-list-item class="mt-5 pa-0" v-for="(product, index) in productList" :key="index">
               <v-list-item-content>
                 <div class="d-flex justify-space-between align-center">
                   <div class="d-flex align-center">
@@ -33,13 +33,13 @@
                     </div>
                   </div>
                   <div>
-                    <p class="primary--text font-weight-bold text-h5">{{ product.price }} uzs</p>
+                    <p class="primary--text font-weight-bold text-h5">{{ product.price * product.count }} uzs</p>
                     <div class="grayBack rounded-lg pa-2 mt-2">
-                      <v-btn text>
+                      <v-btn text @click="countProduct(product, 'minus')">
                         <v-icon>mdi-minus</v-icon>
                       </v-btn>
-                      <span class="mx-4 main--text">1</span>
-                      <v-btn text>
+                      <span class="mx-4 main--text">{{ product.count }}</span>
+                      <v-btn text @click="countProduct(product, 'plus')">
                         <v-icon>mdi-plus</v-icon>
                       </v-btn>
                     </div>
@@ -94,7 +94,7 @@
               <p class="grayDark--text">{{ product.name }}</p>
             </v-col>
             <v-col cols="6 pa-0">
-              <p class="d-flex justify-end main--text font-weight-bold">{{ product.price }} uzs</p>
+              <p class="d-flex justify-end main--text font-weight-bold">{{ product.price * product.count }} uzs</p>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -103,7 +103,7 @@
               <p class="main--text font-weight-bold text-h6">Total price</p>
             </v-col>
             <v-col>
-              <span class="primary--text font-weight-bold d-flex justify-end text-h6">{{ totalPrice }} сум</span>
+              <span class="primary--text font-weight-bold d-flex justify-end text-h6">{{ totalPrice }} uzs</span>
             </v-col>
           </v-row>
           <v-card-actions class="pa-0 mt-6">
@@ -125,13 +125,14 @@ export default {
   data () {
     return {
       loading: false,
+      productList: [],
       form: {
         address: '',
         branch_id: '',
         comment: '',
         delivery_type: '',
         payment_type: '',
-        product_id: [],
+        products: [],
         user_id: this.$store.state.user.guid
       },
       branches: [],
@@ -143,7 +144,7 @@ export default {
       this.loading = true
       Services.orderCreate({
         ...this.form,
-        product_id: this.products.map(el => el.id)
+        products: this.productList.map(el => ({ count: el.count, product_id: el.id }))
       }).then(res => {
         console.log(res)
         this.loading = false
@@ -164,9 +165,20 @@ export default {
       })
     },
     getTotalPrice () {
-      this.totalPrice = this.products.reduce(function (sum, current) {
-        return sum + parseInt(current.price)
+      this.totalPrice = this.productList.reduce(function (sum, current) {
+        return sum + parseInt(current.price) * parseInt(current.count)
       }, 0)
+    },
+    countProduct (element, type) {
+      if (type === 'plus') {
+        element.count = element.count + 1
+      } else if (type === 'minus') {
+        if (element.count) {
+          element.count = element.count - 1
+        } else alert('no item to decrement')
+      }
+      this.getTotalPrice()
+      this.$store.commit('SAVE_STATE_PRODUCT', this.productList)
     }
   },
   computed: {
@@ -176,6 +188,7 @@ export default {
     this.getTotalPrice()
   },
   created () {
+    this.productList = this.products
     this.getMerchantBranches()
     this.$vuetify.goTo(0, {
       duration: 0
