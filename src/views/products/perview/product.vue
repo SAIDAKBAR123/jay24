@@ -1,7 +1,7 @@
 <template>
   <v-container class="products">
      <div class="aside-center main--text">
-          <div class="mb-16" :id="categories.name">
+          <div class="mb-16" :id="'a'+product.id">
             <div>
               <h2 class="font-weight-bold text-h4">{{ categories.name }}</h2>
             </div>
@@ -76,6 +76,11 @@ export default {
     }
   },
   methods: {
+
+    getPropName (arg) {
+      return arg.split(' ').join('')
+    },
+
     toggleDialog (e) {
       this.dialog = !this.dialog
       this.option = { ...e }
