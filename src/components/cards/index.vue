@@ -34,7 +34,7 @@
                 <div class="mt-4">
                   <p class="main--text gray px-2 py-2 rounded-lg text-body-2 mx-2 blue--text" style="display: inline-block">
                   <v-icon left>mdi-bike</v-icon>
-                  {{ element.comission }}%
+                  10 000 uzs
                 </p>
                 </div>
               </div>
